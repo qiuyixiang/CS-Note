@@ -7,7 +7,10 @@ This repository is just a package of Computer Science(CS) Notes, Don't include C
 Copyright : QIUYIXIANG
 Create on : 2024-04-23
 
+
 # Notes Structure
+
+
 The Structure Of this repository :
 - Computer System
 	- Unix
@@ -45,3 +48,33 @@ The Structure Of this repository :
 		- RISC-V ISA
 	- X86
 		- X86 ISA
+
+
+# University Schedule
+
+Some Of the Notes come From University Courses. A Significant of courses come from Stanford University, Mainly Focused on the Stanford Bachelor and Master System-Track ! It also Include Some Open Courses come from other CS famous Universities. such as Berkeley, MIT, Harvard, Princeton and CMU !
+
+Course Overview:
+
+- Programming Language
+	- Stanford CS 106B         Start Date : 2024-04-25  Finish Date : 2024-00-00
+	- Stanford CS 106L         Start Date : 2024-00-00  Finish Date : 2024-00-00
+
+
+- Computer System
+	- Stanford CS 107E         Start Date : 2024-00-00  Finish Date : 2024-00-00
+
+
+- Tools
+	- MIT Missing Semester     Start Date : 2024-04-23  Finish Date : 2024-00-00
+
+
+
+- Mathematics
+
+	- Calculus
+
+	- Discrete Math
+
+
+	- Linear Algebra
