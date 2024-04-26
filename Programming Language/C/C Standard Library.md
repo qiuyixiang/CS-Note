@@ -60,9 +60,57 @@ return:
 
 # String Library
 
+This Library Include Single-Byte (Character) and Multi-Byte (String) Functions and Utilities.
+
+## Character
+
+All Of these Character Function Defined In <ctype.h>
+
+| Function       | Description                                                             |
+| -------------- | ----------------------------------------------------------------------- |
+| isalnum(char)  | checks if a character is alphanumeric                                   |
+| isalpha(char)  | checks if a character is alphabetic                                     |
+| islower(char)  | checks if a character is a lower alphabetic character                   |
+| isupper(char)  | checks if a character is a upper alphabetic character                   |
+| isdigit(char)  | checks if a character is a digit                                        |
+| isxdigit(char) | checks if a character is a hexadecimal character                        |
+| iscntrl(char)  | checks if a character is a control character                            |
+| isgraph(char)  | checks if a character is a graphical character (visible character)      |
+| isspace(char)  | checks if a character is a space character (\\n, \\t)                   |
+| isblank(char)  | checks if a character is a blank character (\\0, \\t)                   |
+| isprint(char)  | checks if a character is a printing character                           |
+| ispunct(char)  | checks if a character is a punctuation (visible and non-zero character) |
+| toupper(char)  | converts a character to uppercase                                       |
+| tolower(char)  | converts a character to lowercase                                       |
+
+ASCII Table
+
+| Decimal | Hexidecimal   | ASCII                                |
+| ------- | ------------- | ------------------------------------ |
+| 0–8     | `\x0`–`\x8`   | control codes (`NUL`, etc.)          |
+| 9       | `\x9`         | tab (`\t`)                           |
+| 10-13   | `\xA`–`\xD`   | whitespaces (`\n`, `\v`, `\f`, `\r`) |
+| 14–31   | `\xE`–`\x1F`  | control codes                        |
+| 32      | `\x20`        | space                                |
+| 33–47   | `\x21`–`\x2F` | `!"#$%&'()*+,-./`                    |
+| 48–57   | `\x30`–`\x39` | `0123456789`                         |
+| 58–64   | `\x3A`–`\x40` | `:;<=>?@`                            |
+| 65–70   | `\x41`–`\x46` | `ABCDEF`                             |
+| 71–90   | `\x47`–`\x5A` | `GHIJKLMNOP`  <br>`QRSTUVWXYZ`       |
+| 91–96   | `\x5B`–`\x60` | `` [\]^_` ``                         |
+| 97–102  | `\x61`–`\x66` | `abcdef`                             |
+| 103–122 | `\x67`–`\x7A` | `ghijklmnop`  <br>`qrstuvwxyz`       |
+| 123–126 | `\x7B`–`\x7E` | `{\|}~`                              |
+| 127     | `\x7F`        | backspace character (`DEL`)          |
+
+## String
+
+## Wide-Character
+
 # Dynamic Memory Library
 
 # Standard IO Library
+
 
 # Type Library
 

@@ -66,15 +66,4 @@ Course Overview:
 
 
 - Tools
-	- MIT Missing Semester     Start Date : 2024-04-23  Finish Date : 2024-00-00
-
-
-
-- Mathematics
-
-	- Calculus
-
-	- Discrete Math
-
-
-	- Linear Algebra
+	- MIT Missing Semester     Start Date : 2024-00-00  Finish Date : 2024-00-00
