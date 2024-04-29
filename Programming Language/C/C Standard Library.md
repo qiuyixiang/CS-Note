@@ -17,6 +17,7 @@ A Overview Of The Content :
 - Dynamic Memory Library
 - Standard IO Library
 - Type Library
+- Numerics Library
 
 Here is a List Of the Headers which will implement soon : 
 
@@ -38,7 +39,7 @@ The Headers which are included in C89
 - <time.h>
 
 
-# Diagnostic Library
+# Diagnostic Library 
 
 Diagnostic Library For C Standard 
 - [assert](#assert)
@@ -103,11 +104,15 @@ ASCII Table
 | 123–126 | `\x7B`–`\x7E` | `{\|}~`                              |
 | 127     | `\x7F`        | backspace character (`DEL`)          |
 
+> You also can use command _man ascii_ to see ascii table !
+
 ## String
 
 ## Wide-Character
 
+
 # Dynamic Memory Library
+
 
 # Standard IO Library
 
@@ -138,3 +143,47 @@ argument:
 
 return:
 	size_t, return the _size_t_ type which is the offset of the _member_ in _type_
+
+# Numerics Library
+
+Numerics Library can be divided into different smaller parts :
+content :
+- Pseudo-random Library
+
+
+## Pseudo-random Library
+
+There are two main function and a Macro in the Pseudo-random Library.
+- [rand](#rand)
+- [srand](#srand)
+
+RAND_MAX : Expands to an integer constant expression equal to the maximum value returned by the function _rand_. This value is implementation dependent
+![](../../_IMG/PL/Snipaste_2024-04-29_15-07-37.png)
+
+The Definition for GNU glibc-11 for Macro RAND_MAX
+### rand
+```c
+int rand();
+```
+Description:
+	Returns a pseudo-random integer value between 0 and _RAND_MAX_, if the seeds is the same value then the function _rand()_ will always return the same series of random value !
+
+return:
+	Returns a pseudo-random integer value between 0 and _RAND_MAX_
+
+### srand
+```c
+void srand(unsigned int seed);
+```
+Description:
+	Set Seeds To the pseudo-random number generator _rand()_
+
+Argument:
+- seed : the seed used for _rand()_
+
+Example For _rand_ and _srand_
+```c
+srand(time(NULL));
+int res = rand();
+```
+get a random number, and set seeds to the current time !
