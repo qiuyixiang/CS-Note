@@ -38,7 +38,6 @@ The Headers which are included in C89
 - <string.h>
 - <time.h>
 
-
 # Diagnostic Library 
 
 Diagnostic Library For C Standard 
@@ -84,6 +83,18 @@ All Of these Character Function Defined In <ctype.h>
 | toupper(char)  | converts a character to uppercase                                       |
 | tolower(char)  | converts a character to lowercase                                       |
 
+
+General Purpose Function for the Character Detection:
+```c
+// checks if a character is a English Letter
+isalpha(char)
+// checks if a character is a number
+isdigit(char)
+// checks if a character is control character
+iscntrol(char)
+// checks if a character is printable
+isprint(char)
+``` 
 ASCII Table
 
 | Decimal | Hexidecimal   | ASCII                                |
@@ -108,15 +119,319 @@ ASCII Table
 
 ## String
 
-## Wide-Character
 
+# Memory Library
 
-# Dynamic Memory Library
+## Memory Management
 
+There are for main memory management function which controls dynamic memory !
+- [malloc](#malloc)
+- [calloc](#calloc)
+- [realloc](#relloc)
+- [free](#free)
 
+## Memory Operation
+
+These functions belong to string library but have the utility for memory operation !
+
+> These Functions are included in <string.h>
+
+Overview of the function:
+- [memchr](#memchr)
+- [memcmp](#memcmp)
+- [memset](#memset)
+- [memcpy](#memcpy)
+- [memmove](#memmove)
+
+### memset
+```c
+void *memset( void *dest, int ch, size_t count );
+```
+Description:
+	Set a buffer of memory to _char_
+
+argument:
+- dest : a pointer to the buffer
+- ch : default value
+- count: the amount of bytes to be set
+
+return:
+	return the buffer address
+
+Example:
+![](../../_IMG/PL/Snipaste_2024-04-30_13-46-18.png)
+
+## Other Memory Function
+
+These Functions Doesn't belong to ISO/ANSI C or C++ Standard.
+These are user defined functions
+
+The function implementation and copyright belong to the author !
+### hexdump
+```c
+void hexdump(void * base, size_t byte)
+```
+description:
+	this function display how data layout in the raw memory
+
+argument:
+- base : a void pointer to the memory address
+- byte : how many bytes you want to display
+
+return :
+- None !
+
+Display Effect : 
+![](../../_IMG/PL/Snipaste_2024-04-30_14-48-32.png)
+
+Implementation:
+```c
+#ifndef LECTURE04_HEXDUMP_HH  
+#define LECTURE04_HEXDUMP_HH  
+  
+/*  
+ * The Implementation for utility function hexdump 
+ * void hexdump(void * base, size_t byte); 
+ * You can also use X86 or X86_64 to enable 32-bits or 64-bits address 
+ * display Mode ! 
+ * Create on : 2024-04-30  
+ * Copyright : QiuYiXiang 
+ */
+
+#include <cstdio>  
+#include <cstring>  
+#include <cstdlib>  
+#include <cstddef>  
+#include <cctype>  
+  
+// The Macros Opener  
+// _ARM32 _ARM64  
+// _X86 _X86  
+  
+#define MAXI_LINE_DISPLAY   0x10  
+#define NEXT_LINE           fprintf(stdout, "\n");  
+  
+void __hexdump_imp(unsigned char * __base_ptr, size_t __byte);  
+void __show_line(unsigned char * __base_ptr, unsigned char * __char_ptr,  
+                 unsigned int __maxi = MAXI_LINE_DISPLAY);  
+  
+/// Export Interface  
+void hexdump(void * base, size_t byte){  
+    __hexdump_imp(reinterpret_cast<unsigned char*>(base), byte);  
+}  
+  
+void __hexdump_imp(unsigned char * __base_ptr, size_t __byte){  
+    if (__byte <= MAXI_LINE_DISPLAY)  
+        __show_line(__base_ptr, __base_ptr);  
+    for (unsigned int index = 0; index != __byte / MAXI_LINE_DISPLAY; ++index){  
+        __show_line(__base_ptr, __base_ptr);  
+        __base_ptr += MAXI_LINE_DISPLAY;  
+    }  
+    __show_line(__base_ptr, __base_ptr, __byte % MAXI_LINE_DISPLAY);  
+}  
+  
+void __show_line(unsigned char * __base_ptr, unsigned char * __char_ptr,  
+                 unsigned int __maxi){  
+#if defined(_ARM64) || defined(_X64)  
+    fprintf(stdout, "%.16lX\t", (unsigned long)__base_ptr);  
+#elif defined(_ARM32) || defined(_X86)  
+    fprintf(stdout, "%.8X\t", (unsigned int)__base_ptr);  
+#endif  
+    for (unsigned _index = 0; _index != __maxi; ++_index, ++__base_ptr)  
+        fprintf(stdout, "%.2X ", (unsigned int)*__base_ptr);  
+  
+    /// Fill With Space  
+    if (__maxi % MAXI_LINE_DISPLAY != 0){  
+        for (unsigned int x = 0; x != MAXI_LINE_DISPLAY - (__maxi % MAXI_LINE_DISPLAY);  
+        ++x)  
+            fputs("   ", stdout);  
+    }  
+    fputc(static_cast<int>('\t'), stdout);  
+    for (unsigned _index = 0; _index != __maxi; ++_index, ++__char_ptr){  
+        if (isprint((int)*__char_ptr))  
+            fprintf(stdout, "%c", (unsigned char)*__char_ptr);  
+        else  
+            fprintf(stdout, ".");  
+    }  
+    NEXT_LINE  
+}  
+#endif //LECTURE04_HEXDUMP_HH
+```
 # Standard IO Library
 
+C Provide Some Standard IO Library Interface
 
+## Types In IO
+
+Some Typedef For C IO Object:
+
+| Type     | Description                                                    |
+| -------- | -------------------------------------------------------------- |
+| FILE     | File Object                                                    |
+| fpos_t   | File Position Type Usually be _unsigned long_                  |
+| stdin    | Macro for FILE * object associative with standard input stream |
+| stdout   | FILE * object associative with standard output stream          |
+| stderror | FILE * object associative with standard error output stream    |
+
+_FILE_ object type, capable of holding all information needed to control a C I/O stream
+eg:
+```c
+typedef struct _FILEs{
+// ......
+}FILE
+```
+
+## Error Handler
+In the Standard IO Library, it also support some error handling Function
+
+- [clearerr](#clearerr)
+- [feof](#feof)
+- [ferror](#ferror)
+- [perror](#perror)
+
+## File Operation
+
+The Overview of File Operation
+- General File Operation
+	- [fopen](#fopen)
+	- [fclose](#fclose)
+	- [fflush](#fflush)
+	- [setbuf](#setbuf)
+- Direct File IO
+	- [fread](#fread)
+	- [fwrite](#fwrite)
+- File Operation
+	- [ftell](#ftell)
+	- [fgetpos](#fgetpos)
+	- [fseek](#fseek)
+	- [fsetpos](#fsetpos)
+	- [rewind](#rewind)
+	- [remove](#remove)
+	- [rename](#rename)
+
+### fopen
+```c
+FILE *fopen( const char *filename, const char *mode );
+```
+Description:
+	Opens a file indicated by `filename` and returns a pointer to the file stream associated with that file. `mode` is used to determine the file access mode
+
+Argument:
+- filename : the file name of which file will be opened
+- mode : a string which denote which mode will be used
+
+return:
+	A pointer point to the file stream object
+
+Operation Mode :
+
+|File access  <br>mode string|Meaning|Explanation|Action if file  <br>already exists|Action if file  <br>does not exist|
+|---|---|---|---|---|
+|"r"|read|Open a file for reading|read from start|failure to open|
+|"w"|write|Create a file for writing|destroy contents|create new|
+|"a"|append|Append to a file|write to end|create new|
+|"r+"|read extended|Open a file for read/write|read from start|error|
+|"w+"|write extended|Create a file for read/write|destroy contents|create new|
+|"a+"|append extended|Open a file for read/write|write to end|create new|
+
+### fread
+```c
+size_t fread( void *buffer, size_t size, size_t count,FILE *stream );
+```
+Description:
+	read up to _size * count_ bytes to the array buffer from file _stream_.
+	This function is very similar to the POSIX Unix _read_ function.
+
+Argument:
+- buffer : destination of the array buffer
+- size : the bytes of each Objects in bytes
+- count: the number of how many object will be read
+- stream : the pointer to the File stream
+
+return:
+	Number of objects read successfully, which may be less than count if an error or end-of-file condition occurs.
+
+### fwrite
+```c
+size_t fwrite( void *buffer, size_t size, size_t count, FILE *stream );
+```
+Description:
+	write up to _size * count_ bytes from the array buffer to file _stream_.
+	This function is very similar to the POSIX Unix _write_ function.
+
+Argument:
+- buffer : source of the array buffer
+- size : the bytes of each Objects in bytes
+- count: the number of how many object will be read
+- stream : the pointer to the File stream
+
+return:
+	Number of objects write successfully, which may be less than count if an error or end-of-file condition occurs.
+## Formatted IO
+
+Overview of Formatted IO Function:
+
+- Input Function
+	- [scanf](#scanf)
+	- [fscanf](#fscanf)
+	- [sscanf](#sscanf)
+	- [vscanf](#vscanf)
+	- [vfscanf](#vfscanf)
+	- [vsscanf](#vsscanf)
+- Output Function
+	- [printf](#printf)
+	- [fprintf](#fprintf)
+	- [sprintf](#sprintf)
+	- [snprintf](#snprintf)
+	- [vprintf](#vprintf)
+	- [vfprintf](#vfprintf)
+	- [vsprintf](#vsprintf)
+	- [vsnprintf](#vsnprintf)
+## UnFormatted IO
+
+Overview of Unformatted IO Function:
+
+- Input Function
+	- [fgetc](#fgetc)
+	- [fgets](#fgets)
+	- [getchar](#getchar)
+	- [gets](#gets)
+- Output Function
+	- [fputc](#fputc)
+	- [fputs](#fputs)
+	- [putchar](#putchar)
+	- [puts](#puts)
+- Other Function
+	- [ungetc](#ungetc)
+
+### fgetc
+```c
+int fgetc(FILE * stream);
+```
+Description:
+	Reads the next character from the given input stream
+
+Argument:
+- stream : read from which stream
+
+return:
+	return the unsigned char cast to int, if failure return to _EOF_
+
+### fputc
+```c
+int fputc(int ch, FILE * stream);
+```
+Description:
+	Write the _char_ character to the given output stream
+
+Argument:
+- ch : the character will be written
+- stream : write to which stream
+
+return:
+	On success, returns the written character.
+	On failure, returns EOF and sets the _error_ indicator
+	
 # Type Library
 
 There are some different type support Library In C . Here Mainly Include <stddef.h>
