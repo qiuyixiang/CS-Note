@@ -4,6 +4,7 @@ Overview of the Content !
 
 - String Library
 - IO Library
+- Container Library
 
 
 # String Library
@@ -59,3 +60,83 @@ IO Hierarchy :
 
 IO Manipulators are manipulators which control the output/input format of the Stream.
 
+
+# Container Library
+
+A Overview of containers in C++ STL (Standard Template Library)
+- Sequence Container
+	- [array](#array)
+	- [vector](#vector)
+	- [deque](#deque)
+	- [forward_list](#forward_list)
+	- [list](#list)
+- Associative Container
+	- [set](#set)
+	- [map](#map)
+	- [multiset](#multiset)
+	- [multimap](#multimap)
+- Unordered Associative Container
+	- [unordered_set](#unordered_set)
+	- [unordered_map](#unordered_map)
+	- [unordered_multiset](#unordered_multiset)
+	- [unordered_multimap](#unordered_multimap)
+- Container Adaptor
+	- [stack](#stack)
+	- [queue](#queue)
+	- [priority_queue](#priority_queue)
+
+## Sequence Container
+
+## Associative Container
+
+## Unordered Associative Container
+
+## Container Adaptor
+
+### stack
+
+Stack in C++ STL is a container adaptor. And it has LIFO (last in first out) traits.
+
+```c++
+template<typename T>
+class stack;
+```
+By default, it has a actual data structure or container: _deque_
+
+Member Function:
+
+| Member Function | Description                                   |
+| --------------- | --------------------------------------------- |
+| top             | return the top element                        |
+| empty           | return whether the size of the container is 0 |
+| size            | return the size of the container              |
+| push            | inserts element at the top                    |
+| emplace         | construct element in-place at the top         |
+| pop             | remove the top element                        |
+| swap            | swaps the contents                            |
+
+Examples For Stack:
+```c++
+std::stack<int>myStack;  
+
+myStack.push(10);  
+myStack.emplace(int(20));  
+myStack.push(30);
+```
+
+### queue
+
+A queue is a **FIFO** (first-in, first-out) data structure. Like the stack, it generally supports a limited set of operations.
+
+Member Function:
+
+| Member Function | Description                          |
+| --------------- | ------------------------------------ |
+| front           | access the first element             |
+| back            | access the last element              |
+| empty           | check whether the container is empty |
+| size            | return the size of the queue         |
+| push            | insert element at the end            |
+| pop             | removes the first element            |
+| swap            | swap the contents                    |
+| emplace         | construct element at the end         |
