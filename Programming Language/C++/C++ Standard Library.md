@@ -70,12 +70,12 @@ A Overview of containers in C++ STL (Standard Template Library)
 	- [deque](#deque)
 	- [forward_list](#forward_list)
 	- [list](#list)
-- Associative Container
+- Associative Container (Red-Black Tree)
 	- [set](#set)
 	- [map](#map)
 	- [multiset](#multiset)
 	- [multimap](#multimap)
-- Unordered Associative Container
+- Unordered Associative Container (Hash Table)
 	- [unordered_set](#unordered_set)
 	- [unordered_map](#unordered_map)
 	- [unordered_multiset](#unordered_multiset)
@@ -88,6 +88,99 @@ A Overview of containers in C++ STL (Standard Template Library)
 ## Sequence Container
 
 ## Associative Container
+
+### set
+In C++ STL Library, a _set_ is a template class
+
+Set Traits:
+- set only contains one copy of that element
+- A set does not maintain the order in which elements are inserted
+
+> The Internal Implementation of _std::set_ is a red-black Tree
+
+Set Member Function:
+
+| Member Function | Description                                                                |
+| --------------- | -------------------------------------------------------------------------- |
+| empty           | checks whether the set is empty                                            |
+| size            | returns the size of the set                                                |
+| clear           | clear the set                                                              |
+| insert          | insert one element into the set                                            |
+| emplace         | construct one element in the set                                           |
+| erase           | erase one element in the set                                               |
+| swap            | swap the content of the set                                                |
+| count           | count the number of elements occur in the set                              |
+| find            | find element with specific value                                           |
+| lower_bound     | finds the first element which value not less equal to the given value (>=) |
+| upper_bound     | finds the first element which value greater the given value                |
+
+### map
+Map is a Standard Template Class implemented with _red-black tree_ in C++ STL
+And is a Standard Formal Tree Data Structure
+
+Map Traits
+- A map is an associative data structure. It maps _keys_ to _values_
+- Each key in a map is distinct and maps to exactly one value
+
+Just Because a map is constructed with a _key_ and a _value_, so there is a build-in data type in C++ STL called _std::pair_ when we construct a map element we must use _pair_, for example : _std::pair<key, value>_ !
+
+Map Member Function:
+
+| Member Function | Description                                                                |
+| --------------- | -------------------------------------------------------------------------- |
+| at              | access specific element with bounds checking                               |
+| operator[]      | access of insert specific element                                          |
+| empty           | checks whether map is empty                                                |
+| size            | return the size of map                                                     |
+| clear           | clear all element of the map                                               |
+| insert          | insert one element to map with _<key, value>_                              |
+| emplace         | construct one element into map with _<key, value>_                         |
+| erase           | erase element with given value                                             |
+| swap            | swap content with map                                                      |
+| count           | count the number of elements in a map                                      |
+| find            | finds a specific key in the map                                            |
+| lower_bound     | finds the first element which value not less equal to the given value (>=) |
+| upper_bound     | finds the first element which value greater the given value                |
+
+> Note : the _lower_bound_ and _upper_bound_ function in map often used for range-based search, Just because map doesn't allow duplicate elements so its unused functions in _map_
+
+
+### multimap
+Multimap in C++ Standard Template Library is very similar to _map_
+the only difference between them is that _map_ doesn't allow duplicate _Key_ element, but _multimap_ does !
+
+Multimap Member Function
+
+| Member Function | Description                                                                |
+| --------------- | -------------------------------------------------------------------------- |
+| empty           | checks whether multimap is empty                                           |
+| size            | return the size of multimap                                                |
+| clear           | clear all element of the multimap                                          |
+| insert          | insert one element to multimap with _<key, value>_                         |
+| emplace         | construct one element into multimap with _<key, value>_                    |
+| erase           | erase element with given value                                             |
+| swap            | swap content with multimap                                                 |
+| count           | count the number of elements in a multimap                                 |
+| find            | finds a specific key in the multimap                                       |
+| lower_bound     | finds the first element which value not less equal to the given value (>=) |
+| upper_bound     | finds the first element which value greater the given value                |
+
+Examples of _lower_bound_ and _upper_bound_ function
+```c++
+std::multimap<long, std::string>MultiMap = {{1, "H"}, {2, "DD"},  
+                                  {2, "ZZ"}, {3, "FF"}};  
+for (auto Iter = MultiMap.lower_bound(2);  
+     Iter != MultiMap.upper_bound(2); ++Iter){  
+    std::cout<<"Key : "<<(*Iter).first<<" Value : "<<(*Iter).second<<std::endl;  
+}  
+std::cout<<MultiMap.size()<<std::endl;
+```
+The Output here is :
+```Shell
+Key : 2 Value : DD
+Key : 2 Value : ZZ
+4
+```
 
 ## Unordered Associative Container
 
