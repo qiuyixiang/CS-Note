@@ -27,6 +27,33 @@ Overview of the Content:
 
 # Algorithm Analysis
 
+## Big-O Analysis
+
+Here is some general outline for Big-O Analysis
+- Assume the input is arbitrarily huge
+- Find the statement (or statements) executed the most in that function, and count how many times they occur
+- Drop any constant coefficients from your approximation and take the highest-order term as the Big-O runtime
+
+| Big-O Runtime  | Alternative Phrasing | Description                                                                                             |
+| -------------- | -------------------- | ------------------------------------------------------------------------------------------------------- |
+| $O(n^3)$       | cublic               | this is a triple loop, with two nested loop                                                             |
+| $O(n^2)$       | quadratic            | this is a double loop often occur with a nested loop                                                    |
+| $O(n)$         | linear               | This is a n-based loop with only one loop                                                               |
+| $O(n\ log\ n)$ | linearithmic         | if you repeatedly divide your input in half, and you  incur an $O(n)$ operation each time you do so     |
+| $O(log\ n)$    | logarithmic          | if you repeatedly divide your input in half, and you only incur an $O(1)$ operation each time you do so |
+| $O(2^n)$       | exponential          | if bumping your input up by 1 causes your runtime to double                                             |
+| $O(1)$         | constant             | always do some fixed operations                                                                         |
+
+> Important Note : $O(log\ n)$ most of the time means $O(log_2\ n)$
+> This is because will always divide the input into two parts
+
+
+Big-O Comparison
+![](../../_IMG/AL/Snipaste_2024-05-05_12-23-49.png)
+The Picture Above is Just a Approximation of Big-O Algorithm Chart,
+Here is a Very Concise Chart.![](../../_IMG/AL/Snipaste_2024-05-05_12-42-38.png)
+
+We can see that $O(log\ n)$ is very close to $O(n)$ and $O(2^n)$ is very close to $O(n^2)$ 
 # Recursion
 
 ## Basics of Recursion
