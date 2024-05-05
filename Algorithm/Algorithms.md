@@ -62,7 +62,10 @@ There are two critical components to recursive functions:
 1. **Base Case.** Include some sort of terminating condition that returns the result for some canonical case where we know the answer immediately.
 2. **Recursive Call.** Decompose the current input into subproblems, one of which involves making a recursive call to the function
 
-Example of easiest recursive function Factorial $n!$ !
+## Examples
+
+### Factorial
+Easiest recursive function Factorial $n!$ 
 if $n=5$ which means $1 \times2 \times3\times4\times5$ ,In the recursive call of $n!$ which mean we need to calculate $(n-1)!$
 
 Base case : $n = 1$
@@ -74,3 +77,34 @@ int factorial(int n){
     return n * factorial(n - 1);  
 }
 ```
+
+
+### Maze Problem
+
+Consider the flowing problem, there is a maze (a two dimensional array),
+in the initial position _pos_ you need to get to the right-bottom of the maze, which can only go through _true_ block, how many routes you can go ?
+```c++
+int countWaysToEscape(Grid<bool>& maze, GridLocation location) {
+    if (location.col == maze.numCols() - 1 && location.row == maze.numRows() - 1)
+        return 1;
+    int right_direction = 0;
+    int down_direction = 0;
+
+    // go right
+    if (maze.inBounds(GridLocation(location.row, location.col + 1)) &&
+        maze[GridLocation(location.row, location.col + 1)]){
+        right_direction = countWaysToEscape
+            (maze,GridLocation(location.row, location.col + 1));
+    }
+    // go down
+    if (maze.inBounds(GridLocation(location.row + 1, location.col)) &&
+        maze[GridLocation(location.row + 1, location.col)]){
+        down_direction = countWaysToEscape
+            (maze,GridLocation(location.row + 1, location.col));
+    }
+    return (right_direction + down_direction);
+}
+```
+
+> this problem come from Stanford CS 106B Section2
+
