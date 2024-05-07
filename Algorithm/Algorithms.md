@@ -24,6 +24,8 @@ Overview of the Content:
 
 - Algorithm Analysis
 - Recursion
+- Search
+- Sort
 
 # Algorithm Analysis
 
@@ -54,6 +56,8 @@ The Picture Above is Just a Approximation of Big-O Algorithm Chart,
 Here is a Very Concise Chart.![](../../_IMG/AL/Snipaste_2024-05-05_12-42-38.png)
 
 We can see that $O(log\ n)$ is very close to $O(n)$ and $O(2^n)$ is very close to $O(n^2)$ 
+
+
 # Recursion
 
 ## Basics of Recursion
@@ -70,7 +74,7 @@ if $n=5$ which means $1 \times2 \times3\times4\times5$ ,In the recursive call of
 
 Base case : $n = 1$
 recursive call : $n \times factorial(n-1)$
-```c++
+```c
 int factorial(int n){  
     if (n == 0)  
         return 1;  
@@ -108,3 +112,87 @@ int countWaysToEscape(Grid<bool>& maze, GridLocation location) {
 
 > this problem come from Stanford CS 106B Section2
 
+
+
+# Search
+
+## Linear Search
+
+Linear Search look through the whole array to find some element.
+Run-time Analysis : $O(n)$
+- The best run-time : $O(1)$
+- The Worst run-time : $O(n)$
+
+Coding for a simple Linear Search
+```c++
+template<typename Tp>  
+bool linear_search(const std::vector<Tp>& buffer, const Tp& target){  
+    for (const auto & data : buffer)  
+        if (data == target)  
+            return true;  
+    return false;  
+}
+```
+
+## Binary Search
+
+Binary Search is a more efficient way to find an element in the sorted group
+Run-time Analysis : $O(log\ n)$
+
+1. sorted the group
+2. compare element with the middle element
+3. narrow down the compare range to the right range or the left range
+4. repeat the step 2
+
+Iteration Implementation
+```c++
+template<typename _Tp>  
+int binary_search_iteration(const std::vector<_Tp>& buffer, const _Tp& target){  
+    int _left_index = 0;  
+    int _right_index = buffer.size() - 1;  
+    for (int _middle_index = (_left_index + _right_index) / 2 ;  
+    _middle_index >= _left_index && _middle_index <= _right_index; ){  
+        if (buffer[_middle_index] == target)  
+            return _middle_index;  
+        if (buffer[_middle_index] < target){  
+            // search right range  
+            _left_index = _middle_index + 1;  
+            _middle_index = (_left_index + _right_index) / 2;  
+        } else{  
+            // search left range  
+            _right_index = _middle_index - 1;  
+            _middle_index = (_left_index + _right_index) / 2;  
+        }  
+    }  
+    return int(-1);  
+}
+```
+
+Recursive Implementation
+```c++
+template<typename _Tp>  
+int __binary_search_recursive(const std::vector<_Tp>& _buffer, const _Tp& _target, int _low, int _high){  
+    int _middle = (_low + _high) / 2;  
+  
+    if (_middle > _high || _middle < _low)  
+        return  -1;  
+  
+    if (_buffer[_middle] == _target)  
+        return _middle;  
+  
+    /// Search Left Range  
+    if (_buffer[_middle] > _target)  
+        return __binary_search_recursive(_buffer, _target, 0, _middle - 1);  
+    /// Search Right Range  
+    else  
+        return __binary_search_recursive(_buffer, _target, _middle + 1, _high);  
+}  
+
+template<typename _Tp>  
+int binary_search_recursive(const std::vector<_Tp>& buffer, const _Tp& target){  
+    return __binary_search_recursive(buffer, target, 0, buffer.size() - 1);  
+}
+```
+
+
+# Sort
