@@ -21,11 +21,34 @@ Overview of the Shell Command Application and some build-in Tools !
 - [echo](#echo)
 - [cat](#cat)
 - [ls](#ls)
+- [tail](#tail)
+- [curl](#curl)
+- [grep](#grep)
 
 You can find where shell find these programs of build-in command using a environment variable _$PATH_
 ```shell
 echo $PATH
 ```
+
+Pipe Command
+Using Pipe, you can put the output of the first command as the input of the second command!
+```shell
+command1 | command2
+```
+
+Output/Input Command
+Using Output/Input Commands, you can read or write from/to a file from a command !
+```shell
+command >> file
+command < file
+```
+
+> Note : 
+
+the difference with `>` or `>>` 
+- the `|` command need both of the operand are command
+- the `>` or `>>` needs one side can be a command but the other side will be a file to be written
+
 ## date
 
 _date_ display current time and date
@@ -58,7 +81,7 @@ Flags for _cat_:
 
 ## ls
 _ls_ list directory contents. 
-Unless a directory is given as its first argument, `ls` will print the contents of the current directory defaultly. Most commands accept flags and options (flags with values) that start with `-` to modify their behavior
+Unless a directory is given as its first argument, `ls` will print the contents of the current directory by default. Most commands accept flags and options (flags with values) that start with `-` to modify their behavior
 
 General Usage:
 ```shell
@@ -82,5 +105,34 @@ Flags for _ls_:
 | -a    | Include directory entries whose names begin with a dot (‘.’). |
 | -l    | List files in the long format, a more detailed display        |
  
+## tail
 
+tail list the last part of the file
+
+```shell
+// To display the last 500 lines of the file foo:
+$ tail -n 500 foo
+```
+
+Flags for _tail_
+
+| Flags | Description                           |
+| ----- | ------------------------------------- |
+| -n    | the line number which want to display |
+
+
+## curl
+curl is a tool for transferring data from or to a server using URLs
+
+```shell
+curl --head --silent baidu.com
+```
+
+
+## grep
+
+The grep utility searches any given input files, selecting lines that match one or more patterns
+```shell
+grep pattern file
+```
 # Script
