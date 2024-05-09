@@ -5,6 +5,7 @@ Overview of the Content !
 - String Library
 - IO Library
 - Container Library
+- Utility Library
 
 
 # String Library
@@ -233,3 +234,35 @@ Member Function:
 | pop             | removes the first element            |
 | swap            | swap the contents                    |
 | emplace         | construct element at the end         |
+
+
+# Utility Library
+
+Overview of Utility Library In C++ Standard Library
+- [pair](#pair)
+- [tuple](#tuple)
+
+## pair
+
+std::pair is a class template that provides a way to store two heterogeneous objects as a single unit.
+
+```c++
+template<typename T1,typename T2 > 
+struct pair;
+```
+
+Members in a pair :
+- first
+- second
+Non-Member Function
+- make_pair  creates a pair object of type, defined by the argument types
+
+
+## tuple
+Class template std::tuple is a fixed-size collection of heterogeneous values.
+The Implementation of a tuple class usually using _recursion_
+
+```c++
+template< class... Types >  
+class tuple;
+```
