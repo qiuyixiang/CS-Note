@@ -53,20 +53,20 @@ Here is some general outline for Big-O Analysis
 Big-O Comparison
 ![](../../_IMG/AL/Snipaste_2024-05-05_12-23-49.png)
 The Picture Above is Just a Approximation of Big-O Algorithm Chart,
-Here is a Very Concise Chart.![](../../_IMG/AL/Snipaste_2024-05-05_12-42-38.png)
+Here is a Very Concise Chart.
+![](../../_IMG/AL/Snipaste_2024-05-05_12-42-38.png)
 
 We can see that $O(log\ n)$ is very close to $O(n)$ and $O(2^n)$ is very close to $O(n^2)$ 
 
-
 # Recursion
 
-## Basics of Recursion
+## Basic Recursion
 
 There are two critical components to recursive functions:
 1. **Base Case.** Include some sort of terminating condition that returns the result for some canonical case where we know the answer immediately.
 2. **Recursive Call.** Decompose the current input into subproblems, one of which involves making a recursive call to the function
 
-## Examples
+Basic Recursion is quite easy, In most cases, you can translate the mathematical definition directly into a recursive implementation by plugging the appropriate expressions into the standard recursive paradigm.
 
 ### Factorial
 Easiest recursive function Factorial $n!$ 
@@ -82,6 +82,33 @@ int factorial(int n){
 }
 ```
 
+### Fibonacci
+
+
+### Pascal’s Triangle
+
+The Pascal's Triangle Formula is defined Here : 
+$$ c(n, k) = \frac{n!}{k!\ \times
+ (n - k )!}$$
+And Using this Formula, we can form this Triangle :
+![](../../_IMG/AL/Snipaste_2024-05-10_12-19-28.png)
+Pascal’s Triangle has the interesting property that every entry is the sum of the two entries above it, except along the left and right edges, where the values are always 1.
+![](../../_IMG/AL/Snipaste_2024-05-10_12-18-52.png)
+This entry, which corresponds to c(6, 2), is the sum of the two entries—5 and 10—that appear above it to either side.
+
+Simple Implementation (Without Generating the Triangle And Without Optimization): 
+```c++
+int __factorial(int n){  
+    if (n == 1)  
+        return n;  
+    return n * __factorial(n - 1);  
+}  
+int c(int n, int k){  
+    if (k == 0 || n == k)  
+        return 1;  
+    return (__factorial(n)) / (__factorial(k)  * __factorial(n - k));  
+}
+```
 
 ### Maze Problem
 
@@ -113,6 +140,70 @@ int countWaysToEscape(Grid<bool>& maze, GridLocation location) {
 > this problem come from Stanford CS 106B Section2
 
 
+## Advanced Recursion
+
+### Towers of Hanoi
+Towers of Hanoi is a very classical example of Advanced Recursion
+
+![](../../_IMG/AL/Snipaste_2024-05-10_13-30-20.png)
+At the beginning, all eight disks are on spire A. Your goal is to move the eight disks from spire A to spire B, while adhering to the following rules:
+
+- You can only move one disk at a time.
+- You are not allowed to move a larger disk on top of a smaller one.
+
+In order to apply recursion to the Towers of Hanoi problem, you must first frame the problem in more general terms. Although the ultimate goal is to move eight disks from A to B, the recursive decomposition of the problem will involve moving smaller subtowers from spire to spire in various configurations. In the more general case, the problem you need to solve is moving a tower of a given height from one spire to another, using the third spire as a temporary repository. To ensure that all subproblems fit the original form, your recursive procedure must therefore take the following arguments:
+
+1. The number of disks to move
+2. The name of the spire where the disks start out
+3. The name of the spire where the disks should finish
+4. The name of the spire used for temporary storage
+
+Problem Solving :
+
+------------ 
+The goal here is to move eight disks from spire A to spire B. You need to ask yourself how it would help if you could solve the same problem for a smaller number of disks. In particular, you should think about how being able to move a stack of seven disks would help you to solve the eight-disk case.
+
+you can solve the problem by dividing it into these three steps:
+
+1. Move the entire stack consisting of the top seven disks from spire A to spire C. 
+![](../../_IMG/AL/Snipaste_2024-05-10_17-00-11.png)
+2. Move the bottom disk from spire A to spire B.  
+ ![](../../_IMG/AL/Snipaste_2024-05-12_12-59-06.png)
+3. Move the stack of seven disks from spire C to spire B.
+![](../../_IMG/AL/Snipaste_2024-05-12_12-59-32.png)
+Code Solution : 
+```c++
+void __move_single(char __start, char __finish){  
+    std::cout<<__start<< " -> " << __finish <<"\n";  
+}  
+void hanoi(int n, char start, char finish, char temp){  
+    if (n == 1)  
+        __move_single(start, finish);  
+    else{  
+        hanoi(n - 1, start, temp, finish);  
+        __move_single(start, finish);  
+        hanoi(n - 1, temp, finish, start);  
+    }  
+}  
+int main(int argc, char *argv[]) {  
+    hanoi(3, 'A', 'B', 'C');  
+    return 0;  
+}
+```
+
+Output Result:
+```shell
+A -> B
+A -> C
+B -> C
+A -> B
+C -> A
+C -> B
+A -> B
+```
+### SubSet Sum
+
+### Permutation String
 
 # Search
 

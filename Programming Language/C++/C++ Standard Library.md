@@ -36,6 +36,26 @@ Overview of the basic_string member function
 | substr(start, length)  <br> | return a new string with the next length chars beginning at start (inclusive); if length is omitted, grabs till end of string |
 | size()                      | return number of characters in the string                                                                                     |
 
+### basic_string Non-member function
+
+Overview of the content :
+- [get_line](#get_line)
+
+#### get_line
+```c++
+istream& getline(istream& is, string& str, char delim);
+```
+
+Description:
+	_get_line()_ reads an input stream from _is_ up until the delim char and stores it in the buffer _str_, the _delim_ char is by default `\n` , and _get_line()_  function will consumes the delim character !
+
+Argument:
+- is : read from which stream
+- str : destination buffer store the result
+- delim: read process will be stopped when it read delim
+
+return:
+	return input stream
 
 # IO Library
 
@@ -56,8 +76,10 @@ The stream-based input/output library is organized around abstract input/output 
 IO Hierarchy :
 ![](../../_IMG/PL/Snipaste_2024-04-29_16-13-33.png)
 
+- Input Stream : Read Data from Source
+- Output Stream : Write Data To Destination
 
-## IO Manipulators
+### IO Manipulators
 
 IO Manipulators are manipulators which control the output/input format of the Stream.
 
