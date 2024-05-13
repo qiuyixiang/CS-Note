@@ -201,10 +201,88 @@ C -> A
 C -> B
 A -> B
 ```
-### SubSet Sum
+### SubSet
+
+Given a Set $\{1,2,3\}$ write a function that generate the given result 
+$$ \{1,2,3\} \rightarrow \{\{2\}, \{1,2\}, \{1\}, \{\}, \{2,3\}, \{1,2,3\}, \{1,3\}, \{3\}\}$$
+which has similar effect with the power set of a set in Discrete Mathematics
+The size of the set is 2 so it will generate a 8-size-set $2^3 = 8$ ($2^N$)
+
+Deal With this Problem Using Recursion :
+```c++
+using subset = std::vector<std::vector<int>>;  
+  
+subset generate_subset(std::vector<int> buffer){  
+    if (buffer.empty())  
+        return {{}};  
+    auto element = buffer.back();  
+    buffer.pop_back();  
+    subset result{};  
+    for (auto & inner : generate_subset(buffer)){  
+        auto inner_copy = inner;  
+        // without the last element
+        result.push_back(inner);  
+		// with the last element
+        inner_copy.push_back(element);  
+        result.push_back(inner_copy);  
+    }  
+    return result;  
+}  
+  
+void display(const subset& buffer){  
+    std::cout<<"{";  
+    for (auto outer = buffer.begin(); outer != buffer.end(); ++outer){  
+        if (outer->empty())  
+            std::cout<<"{}";  
+        else{  
+            std::cout<<"{";  
+            for (auto Iter = outer->begin(); Iter != outer->end(); ++Iter){  
+                std::cout<<*Iter;  
+                if(Iter != outer->end() - 1)  
+                    std::cout<<",";  
+            }  
+            std::cout<<"}";  
+        }  
+        if (outer != buffer.end() - 1)  
+            std::cout<<", ";  
+    }  
+    std::cout<<"}\n";  
+}
+```
 
 ### Permutation String
 
+Generate permutation For String
+Given a string `ABC` list all possible permutation for this string
+```shell
+{ABC, ACB, BAC, BCA, CAB, CBA}
+```
+
+Implementation Using `str[0] str[1-N]`
+```c++
+std::set<std::string> generate_permutation(std::string str){  
+    if (str.empty())  
+        return {};  
+    else{  
+        const char first_element = str[0];  
+        auto rest = str.substr(1);  
+        auto result = generate_permutation(rest);  
+        if (result.empty()){  
+            result.insert(std::string{first_element});  
+            return result;  
+        }  
+        std::set<std::string>__result;  
+        for (auto & element : result){  
+            for (size_t index = 0; index <= element.size(); ++index){  
+                auto ele_copy = element;  
+                ele_copy.insert(index, 1, first_element);  
+                __result.insert(ele_copy);  
+            }  
+        }  
+        return __result;  
+    }  
+}
+```
 # Search
 
 ## Linear Search
