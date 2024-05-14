@@ -6,6 +6,7 @@ Overview of the Content !
 - IO Library
 - Container Library
 - Utility Library
+- Iterator Library
 
 
 # String Library
@@ -79,9 +80,12 @@ IO Hierarchy :
 - Input Stream : Read Data from Source
 - Output Stream : Write Data To Destination
 
+
+
 ### IO Manipulators
 
 IO Manipulators are manipulators which control the output/input format of the Stream.
+
 
 
 # Container Library
@@ -263,6 +267,7 @@ Member Function:
 Overview of Utility Library In C++ Standard Library
 - [pair](#pair)
 - [tuple](#tuple)
+- [hash](#hash)
 
 ## pair
 
@@ -288,3 +293,19 @@ The Implementation of a tuple class usually using _recursion_
 template< class... Types >  
 class tuple;
 ```
+
+## hash
+The unordered associative containers, use specializations of the template `std::hash` as the default hash function.
+
+> What is a good hash function ?
+
+● Be fast to compute 
+● Always map the same input to the same output 
+● Avoid collisions wherever possible
+
+
+# Iterator Library
+
+Iterator hierarchy
+![](../../_IMG/PL/Snipaste_2024-05-14_12-44-50.png)
+Forward iterators are the minimum level of functionality for standard containers

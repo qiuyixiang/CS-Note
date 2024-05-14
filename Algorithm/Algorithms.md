@@ -303,6 +303,7 @@ bool linear_search(const std::vector<Tp>& buffer, const Tp& target){
 }
 ```
 
+
 ## Binary Search
 
 Binary Search is a more efficient way to find an element in the sorted group
