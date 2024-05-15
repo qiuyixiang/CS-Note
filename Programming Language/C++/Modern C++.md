@@ -8,6 +8,7 @@ Overview of the content :
 - Object
 - Template
 - Modern Feature
+- Threads
 
 Reference TextBook:
 
@@ -88,8 +89,155 @@ return x / y;
 
 # Object
 
+## Encapsulation
 
+### Keyword
+This Section include some keywords and the meaning of these keywords used in the class
+
+#### public protected private
+- Using _public_ keyword which specify the member or the variables in this section can be accessed by anyone !
+- Using _private_ keyword which specify the member or the variables in this section can only be accessed by this class (can't not be accessed outside the class)!
+- Using _protected_ keyword which specify the member or the variables in this section can be accessed by the derived class but can't be accessed by the other class !
+```c++
+class Restriction{  
+public:  
+      ...
+protected:  
+      ...
+private:  
+      ...
+};
+```
+
+#### override specifier
+Specifies that a virtual function override another virtual function
+
+syntax:
+The identify override, if used appears immediately after the declaration of the member function
+```c++
+virtual void show_info()
+```
+
+#### const
+const specifier used to specify that a member function will not edit the member data. And if a object is a const object which means it only can call a member function which specifies const !
+
+```c++
+class Test{
+	public:
+		void func() const;
+}
+```
+### Constructor
+
+#### Default Constructor
+
+#### Destructor
+
+#### Copy Constructor
+
+#### Copy Assignment
+
+#### Move Constructor
+
+#### Move Assignment
+
+#### Converting Constructor
+
+## Inheritance
+
+### Inheritance Hierarchy
+
+A Class can be Inherited and derived some subclasses. There are three different method of Inheritance !
+- Public Inheritance
+- Protected Inheritance
+- Protected Inheritance
+
+## Polymorphism
+
+### Polymorphism Base
+
+#### Virtual Function
+
+The _virtual_ specifies that a non-static member function is virtual and supports dynamic dispatch.
+If a member function in base class is defined as virtual function. Then the member functions in derived class can override that function which can behave as different behaviors !
+
+Virtual functions are member functions whose behavior can be overridden in derived classes. As opposed to non-virtual functions, the overriding behavior is preserved even if there is no compile-time information about the actual type of the class. 
+
+That is to say, if a derived class is handled using pointer or reference to the base class, a call to an overridden virtual function would invoke the behavior defined in the derived class. Such a function call is known as _virtual function_
+```c++
+class Base_Class{  
+public:  
+    using Base_ptr = Base_Class*;  
+    Base_Class() = default;  
+    virtual void show_info(){  
+        std::cout<<"This is a function from Base Class"<<"\n";  
+    }  
+};  
+class Derived_Class : public Base_Class{  
+public:  
+    using Derived_ptr = Derived_Class*;  
+    Derived_Class() : Base_Class{} {};  
+    void show_info() override{  
+        std::cout<<"This is a function from Derived Class "<<"\n";  
+    }  
+};  
+  
+int main(int argc, char *argv[]) {  
+  
+    Base_Class::Base_ptr  base_ptr;  
+    Derived_Class derivedClass;  
+    base_ptr = &derivedClass;  
+    base_ptr->show_info();  
+  
+    return 0;  
+}
+```
+
+In this way you can define a group of Base-Class pointer which actual point to the derived class object !
+
+Pure Virtual Function:
+A virtual function can be defined as a pure virtual function using `= 0` specifier !
+
+if a function is defined as a pure virtual function than the class will not be instantiated !
+```c++
+class Abstract{  
+public:  
+    virtual void __func() = 0;  
+};
+```
+> In the Example Above `__func` is a pure virtual function
+
+And if a member function is defined as a pure virtual function, than any class which derived from that Base class it must implement these virtual function !
+
+#### Abstract Class
+Defines an abstract type which cannot be instantiated, but can be used as a base class
+
+A Abstract at least have one pure virtual function !
+
+```c++
+class Abstract{  
+public:  
+    virtual void __func() = 0;  
+};  
+  
+class Instance : public Abstract{  
+public:  
+    void __func() override{  
+        std::cout<<"This class is a derived class from Abstraction !\n";  
+    }  
+};
+```
+
+If you try to Instantiated a Abstract Class it will occur a compile-time error !
+
+
+### Advanced Polymorphism
+
+#### VTable
 # Template
 
 
 # Modern Feature
+
+
+# Threads
