@@ -115,7 +115,7 @@ Specifies that a virtual function override another virtual function
 syntax:
 The identify override, if used appears immediately after the declaration of the member function
 ```c++
-virtual void show_info()
+void show_info() override
 ```
 
 #### const
@@ -149,7 +149,7 @@ class Test{
 
 A Class can be Inherited and derived some subclasses. There are three different method of Inheritance !
 - Public Inheritance
-- Protected Inheritance
+- Private Inheritance
 - Protected Inheritance
 
 ## Polymorphism
@@ -163,7 +163,7 @@ If a member function in base class is defined as virtual function. Then the memb
 
 Virtual functions are member functions whose behavior can be overridden in derived classes. As opposed to non-virtual functions, the overriding behavior is preserved even if there is no compile-time information about the actual type of the class. 
 
-That is to say, if a derived class is handled using pointer or reference to the base class, a call to an overridden virtual function would invoke the behavior defined in the derived class. Such a function call is known as _virtual function_
+That is to say, if a derived class Object is handled using pointer or reference to the base class, a call to an overridden virtual function would invoke the behavior defined in the derived class. Such a function call is known as _virtual function_
 ```c++
 class Base_Class{  
 public:  
@@ -234,7 +234,56 @@ If you try to Instantiated a Abstract Class it will occur a compile-time error !
 ### Advanced Polymorphism
 
 #### VTable
+
+
 # Template
+
+## Template Class
+A Class Can be Defined as a template class using this syntax
+```c++
+template <typename _Tp1, typename _Tp2>
+class Instance;
+```
+
+## Template Function
+Functions whose functionality can be adapted to more than one type or class without repeating the entire code for each type.
+
+> Function Template is different from Class Template is that function argument can be automatically deducted, but class template can't !
+
+## Meta Programming
+
+### Concept
+In C++ 20 The Concept is often used in Template
+
+As of C++20, we can limit the acceptable types in: 
+● template classes 
+● template functions 
+● non-template member functions of a template class
+
+These limits or requirements on are called constraints. A named set of constraints is a concept.
+```c++
+template<typename _Tp>  
+concept Addable = requires (_Tp a, _Tp b){  
+    a + b;  
+};  
+  
+template<typename _Tp>  
+_Tp add(_Tp a, _Tp b) requires Addable<_Tp>{  
+    return a + b;  
+}
+```
+It also can write as this shorthand form
+```c++
+template<typename _Tp>  
+concept Addable = requires (_Tp a, _Tp b){  
+    a + b;  
+};  
+template<Addable _Tp>  
+_Tp add(_Tp a, _Tp b){  
+    return a + b;  
+}
+```
+The concepts library provides definitions of fundamental library concepts that can be used to perform compile-time validation of template arguments and perform function dispatch based on properties of types. These concepts provide a foundation for equational reasoning in programs.
 
 
 # Modern Feature
