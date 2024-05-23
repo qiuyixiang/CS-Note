@@ -19,51 +19,6 @@ Effective Modern C++
 The C++ Programming Language (4th Edition)
 ![](../../_IMG/PL/Snipaste_2024-05-08_19-49-06.png)
 
-# Initialize
-
-## Uniform Initialization
-
-Using C++ Uniform Initialization, we can avoid error or narrow type casting !
-
-Examples For C++ 11 Uniform Initialization
-```c++
-int data1(10.5);  // Direct Initialization (C++ will don't care about this)
-
-int data2{10};   // Uniform Initialization (There will be a error occured)
-```
-
-Uniform Initialization For Class
-```c++
-class test{
-private:
-	int INT;
-	bool BOOL;
-public:
-	test(int _int, bool _bool) : INT(_int), BOOL(_bool){
-		std::cout<<"test(int _int, bool _bool)"<<std::endl;
-	}
-}; 
-int main(){
-	test test1{10, true};
-	
-	return 0;
-}
-```
-## Structured Binding
-
-In C++ 17 Structured Binding, we can set multiple variables simultaneously !
-
-Example:
-```c++
-std::tuple<std::string, std::string, std::string> getInfo(){
-	std::string name {"Stanford CS 106L"};
-	std::string date {"2024-05-08"};
-	std::string language{"C++"};
-	return {name, date, language};
-}
-// We can get the result using this way
-auto [name, date, language] = getInfo();
-```
 # Function
 
 This Part of Note Mainly Include Some Function Utility and Advanced Feature
@@ -86,6 +41,9 @@ int divide(int x, int y){
 return x / y;
 }
 ```
+
+## Lamada
+
 
 # Object
 
@@ -252,6 +210,36 @@ Functions whose functionality can be adapted to more than one type or class with
 
 ## Meta Programming
 
+### Template Cases
+Example for Template Specialization with argument
+```c++
+template<unsigned n>  
+struct factorial{  
+    enum {value = n * factorial<n-1>::value};  
+};  
+template<>  
+struct factorial<0>{  
+    enum {value = 1};  
+};
+```
+Code run during compile time !
+
+constexpr in c++
+Using keyword _constexpr_ can specify a expression allow compiler to get its value during compiling time !
+
+- Constant expressions must be immediately initialized and will run at compile time!
+- Passed arguments to constant expressions should be const/constant expressions as well.
+
+```c++
+constexpr unsigned factorial(unsigned n){  
+    return (n <= 1) ? 1 : n * factorial(n - 1);  
+}  
+int main(int argc, char *argv[]) {  
+    constexpr unsigned result = factorial(10);  
+    std::cout << result << "\n";  
+    return 0;  
+}
+```
 ### Concept
 In C++ 20 The Concept is often used in Template
 
@@ -288,5 +276,57 @@ The concepts library provides definitions of fundamental library concepts that c
 
 # Modern Feature
 
+## Initialize
 
-# Threads
+### Uniform Initialization
+
+Using C++ Uniform Initialization, we can avoid error or narrow type casting !
+
+Examples For C++ 11 Uniform Initialization
+```c++
+int data1(10.5);  // Direct Initialization (C++ will don't care about this)
+
+int data2{10};   // Uniform Initialization (There will be a error occured)
+```
+
+Uniform Initialization For Class
+```c++
+class test{
+private:
+	int INT;
+	bool BOOL;
+public:
+	test(int _int, bool _bool) : INT(_int), BOOL(_bool){
+		std::cout<<"test(int _int, bool _bool)"<<std::endl;
+	}
+}; 
+int main(){
+	test test1{10, true};
+	
+	return 0;
+}
+```
+### Structured Binding
+
+In C++ 17 Structured Binding, we can set multiple variables simultaneously !
+
+Example:
+```c++
+std::tuple<std::string, std::string, std::string> getInfo(){
+	std::string name {"Stanford CS 106L"};
+	std::string date {"2024-05-08"};
+	std::string language{"C++"};
+	return {name, date, language};
+}
+// We can get the result using this way
+auto [name, date, language] = getInfo();
+```
+
+## Type Deduction
+
+### auto
+
+
+### decltype
+
+# Concurrency
