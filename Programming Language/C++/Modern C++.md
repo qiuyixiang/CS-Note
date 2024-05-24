@@ -24,6 +24,7 @@ The C++ Programming Language (4th Edition)
 This Part of Note Mainly Include Some Function Utility and Advanced Feature
 
 ## Function Overload
+
 To overload a function, declare multiple functions with the same name but _differently typed parameters_ or a _different number of parameters_
 
 The Traits which will determine whether a function can be overloaded
@@ -42,8 +43,28 @@ return x / y;
 }
 ```
 
-## Lamada
+## Lambdas
+Lambdas are inline, anonymous functions that can know about functions declared in their same scope!
+```c++
+auto var = [capture-clause] (paramaters) -> return type{
+...
+}
+```
+This is a template of a Lambdas expression
+It Might look like something like this : 
+![](../../_IMG/PL/Snipaste_2024-05-23_14-30-46.png)
 
+There are some rules in Lambdas : 
+
+| Capture options | descriptions                                 |
+| --------------- | -------------------------------------------- |
+| []              | capture nothing                              |
+| [val]           | capture val by value                         |
+| [&val]          | capture val by reference                     |
+| [&val, other]   | capture val by reference, other by value     |
+| [&, other]      | capture everything expect other by reference |
+| [&]             | capture everything by reference              |
+| [=]             | capture everything by value                  |
 
 # Object
 
@@ -85,9 +106,54 @@ class Test{
 		void func() const;
 }
 ```
+
+#### friend
+The friend keyword allows non-member functions or classes to access private information in another class
+
+Friend Declaration Should be something like this 
+```c++
+class Student;  
+bool operator<(const Student& lhs, const Student& rhs);  
+  
+class Student {  
+    friend bool operator<(const Student& lhs, const Student& rhs);  
+private:  
+    unsigned long _id;  
+public:  
+    Student() = default;  
+    explicit constexpr Student(unsigned long id) : _id(id) { };  
+    ~Student() = default;  
+};  
+  
+bool operator<(const Student& lhs, const Student& rhs){  
+    return lhs._id < rhs._id;  
+}
+```
 ### Constructor
 
+One Class At least have a constructor if you don't write one the compiler will generate one default constructor for you.
+
+_Constructors_ are non-static member functions declared with a special declarator syntax, they are used to initialize objects of their class types.
+
+It usually like in this form
+```c++
+ClassName(Parameters ...)
+```
+And it also has some declaration word with it
+
+The constructor is called every time a new instance is created, and the destructor is called when it goes out of scope.
+
+There are six special member functions! These functions are generated only when they're called (and before any are explicitly defined by you): 
+	● Default constructor 
+	● Destructor 
+	● Copy constructor 
+	● Copy assignment operator 
+	● Move constructor 
+	● Move assignment operator
+We don’t have to write out any of these! They all have default versions that are generated automatically
 #### Default Constructor
+
+Default Constructor will do nothing in the coding block, but it will initialize member variables with the default value or all the member default constructor.
 
 #### Destructor
 
@@ -328,5 +394,7 @@ auto [name, date, language] = getInfo();
 
 
 ### decltype
+
+
 
 # Concurrency
