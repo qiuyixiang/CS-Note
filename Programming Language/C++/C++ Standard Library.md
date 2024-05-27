@@ -7,6 +7,7 @@ Overview of the Content !
 - Container Library
 - Utility Library
 - Iterator Library
+- Concept Library
 
 
 # String Library
@@ -309,3 +310,6 @@ The unordered associative containers, use specializations of the template `std:
 Iterator hierarchy
 ![](../../_IMG/PL/Snipaste_2024-05-14_12-44-50.png)
 Forward iterators are the minimum level of functionality for standard containers
+
+# Concept Library
+The concepts library provides definitions of fundamental library concepts that can be used to perform compile-time validation of template arguments and perform function dispatch based on properties of types. These concepts provide a foundation for equational reasoning in programs.

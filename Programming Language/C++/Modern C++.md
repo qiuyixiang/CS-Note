@@ -129,6 +129,22 @@ bool operator<(const Student& lhs, const Student& rhs){
     return lhs._id < rhs._id;  
 }
 ```
+
+#### delete & default
+Setting a special member function to delete removes its functionality!
+If a special member function has a delete trait, it will not be used in any object !
+
+```c++
+delete_member(const delete_member& other)  = delete;
+```
+
+You can also specify a special member function as default, in that case it will use the default version supported by the compiler 
+```c++
+class default_member{  
+public:  
+    default_member() = default;  
+};
+```
 ### Constructor
 
 One Class At least have a constructor if you don't write one the compiler will generate one default constructor for you.
@@ -151,19 +167,43 @@ There are six special member functions! These functions are generated only when 
 	● Move constructor 
 	● Move assignment operator
 We don’t have to write out any of these! They all have default versions that are generated automatically
+
+>Initializer List 
+
+We can used Initializer list to initialize our member variables, it is more efficient than the assigning way!
+```c++
+template <typename T>
+vector<T>::vector<T>() :
+ _size(0), _capacity(kInitialSize), 
+ _elems(new T[kInitialSize]) {  }
+```
+It’s quicker and more efficient to directly construct member variables with intended values
+
 #### Default Constructor
 
 Default Constructor will do nothing in the coding block, but it will initialize member variables with the default value or all the member default constructor.
 
+Declaring any user-defined constructor will make the default disappear without _=default_ specifier.
+
+It you want to keep the default version of the constructor using this line:
+```c++
+ClassCase() = default;
+```
 #### Destructor
 
 #### Copy Constructor
+Object created as a copy of existing object (member variable-wise)
+
+> Note : copy constructor only occur when construct an object 
 
 #### Copy Assignment
+Existing object replaced as a copy of another existing object
 
 #### Move Constructor
+Defining a move assignment operator prevents generation of a move copy constructor, and vice versa
 
 #### Move Assignment
+Defining a move assignment operator prevents generation of a move copy constructor, and vice versa
 
 #### Converting Constructor
 
