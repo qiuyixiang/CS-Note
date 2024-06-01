@@ -7,7 +7,7 @@ Overview of the Content !
 - Container Library
 - Utility Library
 - Iterator Library
-- Concept Library
+- Meta-Programming Library
 
 
 # String Library
@@ -309,7 +309,120 @@ The unordered associative containers, use specializations of the template `std:
 
 Iterator hierarchy
 ![](../../_IMG/PL/Snipaste_2024-05-14_12-44-50.png)
-Forward iterators are the minimum level of functionality for standard containers
+> Forward iterators are the minimum level of functionality for standard containers
 
-# Concept Library
+Iterators are objects that can iterate over elements of a sequence via a common interface that is adapted from ordinary pointers.
+
+## Iterator Base
+
+Iterator Categories
+![](../../IMG/PL/Snipaste_2024-06-01_15-59-33.png)
+
+| Iterator Type          | Description                                                                                                              |
+| ---------------------- | ------------------------------------------------------------------------------------------------------------------------ |
+| Output Iterator        | Output iterators can only step forward with write access                                                                 |
+| Input Iterator         | Input iterators can only step forward element-by-element with read access                                                |
+| Forward Iterator       | Forward iterators are input iterators that provide additional guarantees while reading forward                           |
+| Bidirectional iterator | Bidirectional iterators are forward iterators that provide the additional ability to iterate backward over the elements. |
+| Random-access iterator | Random-access iterators provide all the abilities of bidirectional iterators plus random access.                         |
+
+Iterator Template Class:
+```c++
+template<typename _Category, typename _Tp, typename _Distance = qlibc::ptrdiff_t,  
+        typename _Pointer = _Tp*, typename _Reference = _Tp&>  
+struct iterator{  
+    typedef _Category       iterator_category;  
+    typedef _Tp             value_type;  
+    typedef _Distance       difference_type;  
+    typedef _Pointer        pointer;  
+    typedef _Reference      reference;  
+};
+```
+
+Iterator Traits:
+```c++
+/// Iterator Traits  
+template<typename Iterator>  
+struct __iterator_traits{  
+    typedef typename Iterator::iterator_category    iterator_category;  
+    typedef typename Iterator::value_type           value_type;  
+    typedef typename Iterator::difference_type      difference_type;  
+    typedef typename Iterator::pointer              pointer;  
+    typedef typename Iterator::reference            reference;  
+};  
+  
+/// Specialization for Iterator Traits  
+/// Specialization for Raw Pointer  
+template<typename _Tp>  
+struct __iterator_traits<_Tp*>{  
+    typedef qlibc::random_access_iterator_tag   iterator_category;  
+    typedef _Tp                                 value_type;  
+    typedef _Tp*                                pointer;  
+    typedef _Tp&                                reference;  
+    typedef qlibc::ptrdiff_t                    difference_type;  
+};  
+/// Specialization for Const Raw Pointer  
+template<typename _Tp>  
+struct __iterator_traits<const _Tp*>{  
+    typedef qlibc::random_access_iterator_tag   iterator_category;  
+    typedef _Tp                                 value_type;  
+    typedef const _Tp*                          pointer;  
+    typedef const _Tp&                          reference;  
+    typedef qlibc::ptrdiff_t                    difference_type;  
+};
+```
+
+## Iterator Function
+The C++ standard library provides some auxiliary functions for dealing with iterators: advance(), next(), prev(), distance(), and iter_swap().
+
+
+| Iterator Function | Description                                      |
+| ----------------- | ------------------------------------------------ |
+| advance           | Move an Iterator to the nth position             |
+| distance          | return the distance of two iterators             |
+| next              | return next or next nth position of the iterator |
+| prev              | return prev or prev nth position of the iterator |
+| iter_swap         | swap the two value pointed by the two iterators  |
+
+
+# Meta-Programming Library
+## Type Traits Library
+Type Traits Library provide some supports for type in C++. Type traits define compile-time template-based interfaces to query the properties of types.
+
+These Traits are compiling-time and Belongs to Meta-Programming. The Base Components of C++ Type Traits Library are some Basic Type Support Template.
+
+The Declaration For Base Type of Type Traits Library
+- 
+```c++
+/// Base Type For C++ Type Traits  
+template<typename _Tp, _Tp __v>  
+struct integral_const;  
+  
+template<bool _B>  
+using bool_constant = integral_const<bool, _B>;  
+  
+/// Type Define Specification for integral_const  
+using true_type = integral_const<bool, true>;  
+using false_type = integral_const<bool, false>;
+```
+
+Implementation:
+```c++
+template<class T, T v><br>struct integral_constant{
+	static constexpr T value = v;    
+	using value_type = T;
+	using type = integral_constant; // using injected-class-name    
+	constexpr operator value_type() const noexcept { return value; }    
+	constexpr value_type operator()() const noexcept { return value; } // since c++14<br>};
+```
+### Type Relation
+Type relationship traits can be used to query relationships between types at compile time.
+
+
+| Template Specify | Description                                                                                                       |
+| ---------------- | ----------------------------------------------------------------------------------------------------------------- |
+| is_same          | If `T` and `U` name the same type,provides the member constant `value` equal to true. Otherwise `value` is false. |
+
+
+## Concept Library
 The concepts library provides definitions of fundamental library concepts that can be used to perform compile-time validation of template arguments and perform function dispatch based on properties of types. These concepts provide a foundation for equational reasoning in programs.

@@ -435,6 +435,12 @@ auto [name, date, language] = getInfo();
 
 ### decltype
 
+Decltype is a C++ keyword used to automatically deduct a type of the object ! Notice that the decltype(val), the val must be an object rather than a type name.
 
+> Side Note : decltype need an argument of the instance of the object, meta-programming std::is_same needs two type name, which is different from decltype.
 
-# Concurrency
+A Small tips of std::is_same and _decltype_
+```c++
+EXPECT_EQUAL((std::is_same<std::random_access_iterator_tag,   
+        decltype(std::iterator_traits<decltype(int_ptr)>::iterator_category())>()), true);
+```
