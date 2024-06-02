@@ -3,11 +3,13 @@ This Note Mainly List Some Class or template Class In C++ and Some Utilities Fun
 Overview of the Content !
 
 - String Library
+- Memory Management Library
 - IO Library
 - Container Library
 - Utility Library
 - Iterator Library
 - Meta-Programming Library
+- Concurrency Library
 
 
 # String Library
@@ -58,6 +60,15 @@ Argument:
 
 return:
 	return input stream
+
+
+# Memory Management Library
+
+## new & delete
+
+## Allocator
+
+## uninitialized 
 
 # IO Library
 
@@ -214,6 +225,11 @@ Key : 2 Value : ZZ
 
 ## Container Adaptor
 
+Overview of C++ Container Adaptor:
+- [stack](#stack)
+- [queue](#queue)
+- [priority_queue](#priority_queue)
+
 ### stack
 
 Stack in C++ STL is a container adaptor. And it has LIFO (last in first out) traits.
@@ -262,6 +278,9 @@ Member Function:
 | swap            | swap the contents                    |
 | emplace         | construct element at the end         |
 
+### priority_queue
+
+
 
 # Utility Library
 
@@ -269,6 +288,7 @@ Overview of Utility Library In C++ Standard Library
 - [pair](#pair)
 - [tuple](#tuple)
 - [hash](#hash)
+- [optional](#optional)
 
 ## pair
 
@@ -303,6 +323,35 @@ The unordered associative containers, use specializations of the template `std:
 ● Be fast to compute 
 ● Always map the same input to the same output 
 ● Avoid collisions wherever possible
+
+## optional
+std::optional (c++ 17, c++ 23) in the header file <optional.h>
+
+std::optional is a template class which will either contain a value of type T or contain nothing (expressed as nullopt), The class template _std::optional_ manages an _optional_ contained value.A common use case for _optional_ is the return value of a function that may fail.
+
+The member function of std::optional
+
+| Member function        | description                                                                                                   |
+| ---------------------- | ------------------------------------------------------------------------------------------------------------- |
+| .value()               | returns the contained value                                                                                   |
+| .value_or(other)       | returns the contained value if available, another value otherwise                                             |
+| .and_then(function f)  | returns the result of calling f(value) if contained value exists, otherwise null_opt (f must return optional) |
+| .transform(function f) | returns the result of calling f(value) if contained value exists, otherwise null_opt (f must return optional) |
+| .or_else(function f)   | returns value if it exists, otherwise returns result of calling f                                             |
+
+> Monadic: a software design pattern with a structure that combines program fragments (functions) and wraps their return values in a type with additional computation. These all let you try a function and will either return the result of the computation or some default value.
+
+using std::optional can control if the return value failed, we can manage the result !
+example : 
+```c++
+std::optional<int> divide(int numerator, int denominator){  
+    if (denominator){  
+        return numerator / denominator;  
+    } else{  
+        return std::nullopt;  
+    }  
+}
+```
 
 
 # Iterator Library
@@ -386,6 +435,7 @@ The C++ standard library provides some auxiliary functions for dealing with iter
 
 
 # Meta-Programming Library
+
 ## Type Traits Library
 Type Traits Library provide some supports for type in C++. Type traits define compile-time template-based interfaces to query the properties of types.
 
@@ -408,14 +458,17 @@ using false_type = integral_const<bool, false>;
 
 Implementation:
 ```c++
-template<class T, T v><br>struct integral_constant{
+template<class T, T v>
+struct integral_constant{
 	static constexpr T value = v;    
 	using value_type = T;
 	using type = integral_constant; // using injected-class-name    
 	constexpr operator value_type() const noexcept { return value; }    
-	constexpr value_type operator()() const noexcept { return value; } // since c++14<br>};
+	constexpr value_type operator()() const noexcept { return value; } // since c++14
+};
 ```
 ### Type Relation
+
 Type relationship traits can be used to query relationships between types at compile time.
 
 
@@ -425,4 +478,8 @@ Type relationship traits can be used to query relationships between types at com
 
 
 ## Concept Library
+
 The concepts library provides definitions of fundamental library concepts that can be used to perform compile-time validation of template arguments and perform function dispatch based on properties of types. These concepts provide a foundation for equational reasoning in programs.
+
+
+# Concurrency Library

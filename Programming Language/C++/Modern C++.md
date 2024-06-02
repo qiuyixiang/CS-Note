@@ -346,6 +346,33 @@ int main(int argc, char *argv[]) {
     return 0;  
 }
 ```
+
+### Move Semantic 
+Move Semantics are important in Modern C++, mainly include left-value and right-value !
+#### move
+std::move can make any variables include a left-value or a right-value to the right-value !
+
+The implementation of std::move:
+```c++
+template<typename _Tp>  
+inline QLIBC_CONSTEXPR  
+typename qlibc::remove_reference<_Tp>::type&& move(_Tp&& _arg){  
+    return static_cast<typename qlibc::remove_reference<_Tp>::type&&>(_arg);  
+}
+```
+
+#### forward
+Forward is used in C++ to implement perfect forward.
+
+Perfect forwarding is a feature introduced in C++11 that allows function templates to forward arguments exactly as received to another function, including preserving the argument's type (lvalue, rvalue, const, volatile, etc.)
+
+Reference collapsing rules: 
+- Only && && will deducted to &&
+- All of the other situation will be deducted to &
+
+> Use std::move on rvalue references, std::forward on universal references.
+
+
 ### Concept
 In C++ 20 The Concept is often used in Template
 
@@ -431,11 +458,18 @@ auto [name, date, language] = getInfo();
 ## Type Deduction
 
 ### auto
+Auto Keyword can automatically deduct the type of the variables. But it will not keep the referentiality which is different from _decltype_ !
 
+```c++
+int x = 5;
+int& y = x; 
 
+auto a = x;  // int
+auto b = y;  // int
+```
 ### decltype
 
-Decltype is a C++ keyword used to automatically deduct a type of the object ! Notice that the decltype(val), the val must be an object rather than a type name.
+Decltype is a C++ keyword used to automatically deduct a type of the object ! Notice that the decltype(val), the val must be an object rather than a type name. And it will keep the referentiality.
 
 > Side Note : decltype need an argument of the instance of the object, meta-programming std::is_same needs two type name, which is different from decltype.
 
@@ -443,4 +477,13 @@ A Small tips of std::is_same and _decltype_
 ```c++
 EXPECT_EQUAL((std::is_same<std::random_access_iterator_tag,   
         decltype(std::iterator_traits<decltype(int_ptr)>::iterator_category())>()), true);
+```
+
+It will keep the referentiality which is different from _auto_ !
+```c++
+int x = 5;
+int& y = x; 
+
+decltype(x) a = x; // int 
+decltype(y) b = x; // int&
 ```
