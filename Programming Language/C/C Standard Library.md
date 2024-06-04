@@ -162,12 +162,42 @@ return:
 Example:
 ![](../../_IMG/PL/Snipaste_2024-04-30_13-46-18.png)
 
+### memcpy
+```c
+void* memcpy( void *dest, const void *src, size_t count );
+```
+
+Argument: 
+- dest : pointer to the object to copy to
+- src : pointer to the object to copy from
+- count : number of bytes to copy
+
+return:
+	return the copy of the destination pointer
+
+
+### memmove
+```c
+void* memmove( void *dest, const void *src, size_t count );
+```
+
+Description:
+	memmove is very similar to function memcpy, the only difference is that is the destination is overlap from source, the behavior of memcpy is undefined and memmove will check whether the memory address is overlapping !
+
+Argument: 
+- dest : pointer to the object to copy to
+- src : pointer to the object to copy from
+- count : number of bytes to copy
+
+return:
+	return the copy of the destination pointer
+
 ## Other Memory Function
 
-These Functions Doesn't belong to ISO/ANSI C or C++ Standard.
+These Functions doesn't belong to ISO/ANSI C or C++ Standard.
 These are user defined functions
 
-The function implementation and copyright belong to the author !
+The function implementation and copyright belong to the author who self-implement this function rather than the ISO/ANSI C Standard !
 ### hexdump
 ```c
 void hexdump(void * base, size_t byte)
