@@ -94,7 +94,7 @@ Insertion Process In MiniHeap
 Deletion Process In MaxiHeap
 1. Preserve the structural property, the last value (bottom-right) moves up to the root position
 2. Restore ordering property by percolating down.
-
+   
 ### Structure
 Maxi Heap is representation using an array/vector depends on the situation, so that we can have $O(1)$ time to access elements in the maxi heap !
 
@@ -108,17 +108,88 @@ The `Buffer[0]` is the maximum elements in the heap and the Buffer `[Buffer.size
 
 ## Application
 
+### Core Function
+
+The Implementation For Core Function Percolate_Down And Percolate_Up
+Notice That Percolate Up only need to consider the parent node, but the Percolate Down need more considerations so that it can treat the left child index and right child index properly !
+
+Percolate Down :
+```c++
+template<typename _RandomAccessIterator, typename _Size, typename _Compare>  
+void percolate_down(_RandomAccessIterator __first, _Size __index, _Size __len, _Compare __compare){  
+    if (__len < 2)  
+        return;  
+    const _Size _search_max = (__len - 2) / 2;  
+    while (__index <= _search_max){  
+        _Size _left_index = __index * 2 + 1;  
+        _Size _right_index = __index * 2 + 2;  
+        _Size _swap_index;  
+        /// Judge Whether the right node exist
+        if (_right_index <= __len - 1){  
+            if (__compare(__first[__index], __first[_left_index]) &&  
+            __compare(__first[__index], __first[_right_index]))  
+                return;  
+            _swap_index = __compare(__first[_left_index],  
+                                    __first[_right_index]) ? _left_index : _right_index;  
+        } else{  
+        /// Left Node must exist beacuse the boundary restrictions is to ensure that the search span only             ///cover valid range
+            if (__compare(__first[__index], __first[_left_index]))  
+                return;  
+            _swap_index = _left_index;  
+        }  
+        std::swap(__first[__index], __first[_swap_index]);  
+        __index = _swap_index;  
+    }  
+}
+```
+
+Percolate Up : 
+```c++
+template<typename _RandomAccessIterator, typename _Size, typename _Compare>  
+void percolate_up(_RandomAccessIterator __first, _Size __index, _Compare __compare){  
+    if (__index == 0)  
+        return;  
+    /// Just try to find parent node index until meet the boundary condition which index == 0
+    for (_Size index_parent;  __index != 0; ){  
+        index_parent = (__index - 1) / 2;  
+        if (!__compare(__first[__index], __first[index_parent]))  
+            break;  
+        std::swap(__first[__index], __first[index_parent]);  
+        __index = index_parent;  
+    }  
+}
+```
+
 ### Heap Sort
 Using Heap Data Structure We can implement an efficient Sort Algorithm.
 
 1. Insert n elements into miniHeap - $O(n\ log\ n)$
 2. Remove all elements from miniHeap place them in a vector as they come out - $O(n\ log\ n)$
 
+Heap Sort Implementation in C++ Template
+```c++
+template<typename _RandomIterator>  
+void heap_sort(_RandomIterator __first, _RandomIterator __last){  
+    typedef typename std::iterator_traits<_RandomIterator>::value_type Value_Type;  
+    container::priority_queue<Value_Type, std::less<Value_Type>, std::vector<Value_Type>> __buffer;  
+    auto __current = __first;  
+    for ( ; __current != __last; ++__current)  
+        __buffer.push(*__current);  
+    __current = __first;  
+    while (!__buffer.empty()){  
+        *__current = __buffer.top();  
+        __buffer.pop();  
+        ++__current;  
+    }  
+}
+```
 
 ### Heapify
 Heapify is an Algorithm for turning an arbitrary array/complete binary tree into a miniHeap in place (without creating a new array)
 
 Let BRMNLN be the index of the bottom-right most non-leaf node in the complete binary tree represented by the given array call `percolateDown()` starting at index BRMNLN and down through index 0 (the root)
+
+The BRMNLN Index is the last Botton-Right Most Non-Leaf Node In the Complete Binary Tree, And usual write as (length - 2) / 2 .
 ```c++
 for (int i = BRMNLN; i >= 0; i--){
 	percolateDown(i);
@@ -126,7 +197,22 @@ for (int i = BRMNLN; i >= 0; i--){
 ```
 This Percolates Larger Values down while squishing smaller elements up in the heap !
 
+Using Percolate_Down and Percolate_Up Function its quite easy to implementation functions such as heap_sort or heapify(In C++ Standard Template Library It is usually called std::make_heap), Just Using the implemented helper functions:
+```c++
+template<typename _RandomAccessIterator,  typename _Compare>  
+void make_heap(_RandomAccessIterator __first ,_RandomAccessIterator __last, _Compare __compare){  
+    typedef typename std::iterator_traits<_RandomAccessIterator>::difference_type Diff_Type;  
+    Diff_Type  len = std::distance(__first, __last);  
+    for (Diff_Type _index = (len - 2) / 2; _index >= 0; --_index){  
+        percolate_down(__first, _index, len, __compare);  
+    }  
+}
+```
+
+
+
 # Graph
+
 
 
 # Hash table
