@@ -492,6 +492,70 @@ The C++ standard library provides some auxiliary functions for dealing with iter
 | prev              | return prev or prev nth position of the iterator |
 | iter_swap         | swap the two value pointed by the two iterators  |
 
+## Iterator Adaptor
+There are many Kinds of Iterator Adaptors
+- [reverse_iterator](#reverse_iterator)
+- [insert_iterator](#insert_iterator)
+
+### reverse_iterator
+std::reverse_iterator is an iterator adaptor that reverses the direction of a given iterator, which must be at least a Bidirectional Iterator
+
+For a reverse iterator r constructed from an iterator i, the relationship _&*r == &*(i - 1)_
+![](../../_IMG/PL/Snipaste_2024-06-14_18-50-02.png)
+
+Implementation of the Interfaces In qlibc++ 0.0.2
+```c++
+/// Reverse Iterator  
+template<typename _Iterator>  
+class reverse_iterator : public iterator<  
+        typename qlibc::iterator_traits<_Iterator>::value_type,  
+        typename qlibc::iterator_traits<_Iterator>::iterator_category,  
+        typename qlibc::iterator_traits<_Iterator>::difference_type,  
+        typename qlibc::iterator_traits<_Iterator>::pointer,  
+        typename qlibc::iterator_traits<_Iterator>::reference>{  
+public:  
+    using iterator_type = _Iterator;  
+    using _Self = reverse_iterator<iterator_type>;  
+  
+    typedef typename qlibc::iterator_traits<_Iterator>::value_type value_type;  
+    typedef typename qlibc::iterator_traits<_Iterator>::iterator_category iterator_category;  
+    typedef typename qlibc::iterator_traits<_Iterator>::difference_type difference_type;  
+    typedef typename qlibc::iterator_traits<_Iterator>::pointer pointer;  
+    typedef typename qlibc::iterator_traits<_Iterator>::reference reference;  
+protected:  
+    iterator_type _M_current;  
+public:  
+    QLIBC_CONSTEXPR reverse_iterator() QLIBC_NOTHROW : _M_current() { }  
+    explicit QLIBC_CONSTEXPR reverse_iterator(iterator_type& _Other) : _M_current(_Other) { }  
+    QLIBC_CONSTEXPR reverse_iterator(const iterator_type& _Other) : _M_current(_Other) { }  
+    reverse_iterator(const reverse_iterator& _Other) : _M_current(_Other.base()) { }  
+    reverse_iterator& operator=(const reverse_iterator& _Other);  
+    ~reverse_iterator() = default;  
+  
+    iterator_type base() const QLIBC_NOTHROW;  
+    reference operator*() const;  
+    pointer operator->() const;  
+    reference operator[](difference_type __n) const;  
+  
+    reverse_iterator& operator++();  
+    reverse_iterator operator++(int);  
+    reverse_iterator& operator+=(difference_type __n);  
+    reverse_iterator operator+(difference_type __n);  
+  
+    reverse_iterator& operator--();  
+    reverse_iterator operator--(int);  
+    reverse_iterator& operator-=(difference_type __n);  
+    reverse_iterator operator-(difference_type __n);  
+};
+```
+
+### insert_iterator
+Insert Iterator Is A Container Iterator Adaptor, It Maintain An Inner Iterator, And Will Call push_back or push_front automatically every time you call _operator=_ !
+
+- back_insert_iterator
+- front_insert_iterator
+- insert_iterator
+
 
 # Meta-Programming Library
 
