@@ -6,5 +6,21 @@ Reference TextBook:
 
 # Pre-requisite
 
+## Basic Concept
+### Floors And Ceilings
 
-# limit
+The notation $\lceil x \rceil$ represents the ceiling of $x$, the smallest integer greater than or equal to $x$.
+Intuition: Start at $x$ on the number line, then move to the right until you hit a tick mark.
+
+The notation $\lfloor x \rfloor$ represents is the floor of $x$, the largest integer less than or equal to $x$.  Intuition: Start at $x$ on the number line, then move to the left until you hit a tick mark
+
+## Algebra
+
+## Geometry
+
+## Logarithm and Exponent
+
+
+## Trigonometric
+
+

@@ -82,3 +82,50 @@ Interesting Theorem:
 Every Set is strictly smaller that its power set 
 
 > Interesting Rules : Given elements of the set $\wp(\wp(\mathbb{N}))$. These are subsets of the set $\wp(\mathbb{N})$  
+
+
+# Mathematical Proof
+
+## Statement
+
+Overview :
+- Universally-Quantified Statement : User can make any arbitrary choices
+- Existentially-Quantified Statement : Only Some Particular choices can be used
+
+### Universally-Quantified Statement
+
+A universally-quantified statement usually in this format !
+	For all x, _some-property_ holds for x
+
+Example :
+
+Theorem: For any integers m and n, if m and n are odd, then $m + n$ is even. 
+Proof: Consider any arbitrary integers m and n where m and n are odd. We need to show that $m + n$ is even. 
+Since m is odd, we know that there is an integer k where 
+$$ m = 2k + 1. \ (1) $$
+Similarly, because n is odd there must be some integer r such that 
+$$n = 2r + 1.\ (2) $$
+By adding equations (1) and (2) we learn that 
+$$ \begin{align} 
+m + n &= 2k + 1 + 2r + 1 \\ &= 2k + 2r + 2 \\ &= 2(k + r + 1). \ \ (3)
+\end{align}
+$$ 
+Equation (3) tells us that there is an integer s (namely, k + r + 1) such that m + n = 2s. Therefore, we see that m + n is even, as required.■
+
+### Existentially-Quantified Statement
+
+An existentially-quantified statement is a statement of the form
+	There is some x where _some-property_ holds for x.
+
+Example:
+
+Theorem: For any odd integer n, there exist integers r and s where $r^2 - s^2=n$
+Proof: Let n be an arbitrary odd integer. We will show that there exist integers r and s where  $r^2 - s^2=n$ 
+Since n is odd, we know there is an integer k where $n = 2k + 1$. Now, let $r = k+1$ and $s = k$. Then we see that 
+$$
+\begin{align}
+r ^2 \ – \ s ^2 &= (k+1)^2 –\ k ^2 \\ 
+&= k ^2 + 2k + 1 \ – \ k ^2 \\&= 2k + 1 \\&= n.
+\end{align}
+$$
+This means that r 2 – s 2 = n, which is what we needed to show. ■
