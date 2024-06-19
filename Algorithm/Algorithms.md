@@ -366,3 +366,98 @@ int binary_search_recursive(const std::vector<_Tp>& buffer, const _Tp& target){
 
 
 # Sort
+
+## Selection Sort
+
+Selection Sort go through the whole range of unsorted array, and search the smallest element in the array first, and mark it as smallest element and then after first loop it will swap the smallest element with the _left-most position_ element. And repeat the process for the remaining unsorted portion of the array.
+
+![](../../_IMG/AL/Snipaste_2024-06-19_09-37-49.png)
+Example:
+```c++
+void selection_sort(std::vector<int>& buffer){  
+    for (int index = 0; index != buffer.size() - 1; index++){  
+        int smallest_element_index = index;  
+        for (int loop_thr = index + 1; loop_thr != buffer.size(); ++loop_thr){  
+            if (buffer[loop_thr] < buffer[smallest_element_index])  
+                smallest_element_index = loop_thr;  
+        }  
+        std::swap(buffer[smallest_element_index], buffer[index]);  
+    }  
+}
+```
+
+Worst-Case Runtime : $O(n^2)$
+Best-Case Runtime : $O(n^2)$
+
+Operations: Heavy on comparisons, light on swaps.It spends a lot of time comparing elements in each pass before settling on which one to swap into the next target position.
+## Insertion Sort
+
+Insertion Sort insert one element into sorted range. Initially, consider the first element to constitute a separate, sorted vector. Then pull the first element out of the unsorted partition of the vector.
+![](../../_IMG/AL/Snipaste_2024-06-19_15-00-19.png)
+
+```c++
+void insert_sort(std::vector<int>& buffer){  
+    for (int index = 1; index != buffer.size(); ++index){  
+        int value = buffer[index];  
+        int target_index = index;  
+        for (int compare_index = index - 1; buffer[compare_index] > value  
+        && compare_index >= 0; --compare_index){  
+            buffer[target_index] = buffer[compare_index];  
+            --target_index;  
+        }  
+        buffer[target_index] = value;  
+    }  
+}
+```
+Only Mark it without actually swap the elements.
+
+Worst-Case Runtime : $O(n^2)$
+Best-Case Runtime : $O(n)$
+Operations: Heavy on swaps, potentially light on comparisons. A pass of insertion sort stops as soon as it encounters an element smaller than the one it's dragging down, though, meaning that it could potentially stop each pass early and end up doing fewer comparisons than selection sort.
+
+## Merge Sort
+
+Merge Sort will break down the vector, then merge the pieces back together.
+
+Overview 
+![](Snipaste_2024-06-19_15-59-14.png)
+Just Like a Decision Tree, When there is only one element in the buffer which have reached our base case.
+![](../../_IMG/AL/Snipaste_2024-06-19_16-03-20.png)
+
+Example Using Recursive: 
+```c++
+void merge_sort(std::vector<int>& buffer, int low_index, int high_index){  
+    if (low_index >= high_index)  
+        return;  
+    int mid_index = low_index + (high_index - low_index) / 2;
+    merge_sort(buffer, low_index, mid_index);  
+    merge_sort(buffer, mid_index + 1, high_index);  
+    std::vector<int> auxiliary_buffer;  
+    int _left = low_index;  
+    int _right = mid_index + 1;  
+    while (_left <= mid_index && _right <= high_index){  
+        if (buffer[_left] <= buffer[_right]){  
+            auxiliary_buffer.push_back(buffer[_left]);  
+            ++_left;  
+        } else{  
+            auxiliary_buffer.push_back(buffer[_right]);  
+            ++_right;  
+        }  
+    }  
+    while (_left <= mid_index){  
+        auxiliary_buffer.push_back(buffer[_left]);  
+        ++_left;  
+    }  
+    while (_right <= high_index){  
+        auxiliary_buffer.push_back(buffer[_right]);  
+        ++_right;  
+    }  
+    std::copy(auxiliary_buffer.begin(), auxiliary_buffer.end(), &buffer[low_index]);  
+}  
+void merge_sort(std::vector<int>& buffer){  
+    merge_sort(buffer, 0, buffer.size() - 1);  
+}
+```
+## Heap Sort
+
+## Quick Sort

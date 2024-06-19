@@ -17,6 +17,21 @@ Introduction to Algorithm
 
 # Linked List
 
+Linked List is a Basic Linked Node Structure. With Node Structure linked list can be implemented quite easy.
+
+```c++
+template<typename _Tp>
+struct node{
+	_Tp data;
+	node<_Tp> * next;
+}
+```
+this is a single list node structure
+
+## Single linked list
+
+## Double linked list
+
 
 # Tree
 
@@ -35,6 +50,7 @@ Some Basic Terminology In Tree :
 ## B Tree
 
 ## B+ Tree
+
 
 # Heap
 Heap is a special Data Structure. Which Inner Implementation is a binary tree Diagram.
