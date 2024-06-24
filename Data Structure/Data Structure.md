@@ -34,14 +34,67 @@ this is a single list node structure
 
 
 # Tree
+![](../../_IMG/AL/Snipaste_2024-06-24_15-38-04.png)
+A Tree is either an empty data structure or a single node with zero or more non-empty subtrees.
 
 Some Basic Terminology In Tree : 
 - nodes : nodes is the basic part of a tree which normally has its value
 - edges : edges are normally the connection between nodes
 - root node : only one per tree, usually in the top of the tree
 - leaf node : nodes with no children
+- depth : the depth of a node is the length of its path to the root
+- height : the height of a tree is defined to be the number of levels that a tree has
 
 ## Binary Tree
+
+A Binary tree is a tree where every node has either 0,1 or 2 children. No node in a binary tree can have more than 2 children.
+
+```c++
+template<typename _Tp>  
+struct tree_node{  
+    _Tp M_data;  
+    tree_node<_Tp>* M_left;  
+    tree_node<_Tp>* M_right;  
+    explicit tree_node(const _Tp& data) : M_data(data), M_right(nullptr), M_left(nullptr){ };  
+};
+```
+Binary Tree Traverse
+
+First Order:
+```c++
+template<typename _Tp>  
+void first_order_print(tree_node<_Tp>* root){  
+    if (root){  
+        std::cout << root->M_data << " ";  
+        first_order_print(root->M_left);  
+        first_order_print(root->M_right);  
+    }  
+}
+```
+In Order:
+```c++
+template<typename _Tp>  
+void in_order_print(tree_node<_Tp>* root){  
+    if (root){  
+        first_order_print(root->M_left);  
+        std::cout << root->M_data << " ";  
+        first_order_print(root->M_right);  
+    }  
+}
+```
+Post Order:
+```c++
+template<typename _Tp>  
+void post_order_print(tree_node<_Tp>* root){  
+    if (root){  
+        first_order_print(root->M_left);  
+        first_order_print(root->M_right);  
+        std::cout << root->M_data << " ";  
+    }  
+}
+```
+
+## Binary Search Tree
 
 ## AVL Tree
 

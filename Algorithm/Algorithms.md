@@ -461,3 +461,51 @@ void merge_sort(std::vector<int>& buffer){
 ## Heap Sort
 
 ## Quick Sort
+
+Quick Sort Algorithm : 
+
+1. Partition the elements into three categories based on a chosen _pivot_ element:
+- Elements _smaller_ than the pivot
+- Elements _greater_ than the pivot
+- Elements _equal_ to the pivot
+
+2. Recursively sort the two partitions that are not equal to the pivot (smaller and larger elements)
+
+3. Concatenate the three now-sorted partitions together.
+
+![](../../_IMG/AL/Snipaste_2024-06-24_14-32-14.png)
+
+Implementations for array:
+```c++
+void partition(std::vector<int>& buffer, std::vector<int>& less, std::vector<int>& equal,  
+               std::vector<int>& greater, int pivot){  
+    for (int index = 0; index != buffer.size(); ++index){  
+        int value = buffer[index];  
+        if (value < pivot)  
+            less.push_back(value);  
+        else if (value > pivot)  
+            greater.push_back(value);  
+        else  
+            equal.push_back(value);  
+    }  
+    buffer.clear();  
+}  
+void concatenate(std::vector<int>& buffer, std::vector<int>& less, std::vector<int>& equal,  
+                 std::vector<int>& greater){  
+    auto inserter = buffer.insert(buffer.begin(), less.begin(), less.end());  
+    inserter = buffer.insert(inserter, equal.begin(), equal.end());  
+    buffer.insert(inserter, greater.begin(), greater.end());  
+}  
+void quick_sort(std::vector<int>& buffer){  
+    if (buffer.size() <= 1)  
+        return;  
+    int pivot = buffer[0];  
+    std::vector<int> less, greater, equal;  
+    partition(buffer, less, equal, greater, pivot);  
+  
+    quick_sort(less);  
+    quick_sort(greater);  
+  
+    concatenate(buffer, less, equal, greater);  
+}
+```

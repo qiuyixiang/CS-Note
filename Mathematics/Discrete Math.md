@@ -99,8 +99,8 @@ A universally-quantified statement usually in this format !
 
 Example :
 
-Theorem: For any integers m and n, if m and n are odd, then $m + n$ is even. 
-Proof: Consider any arbitrary integers m and n where m and n are odd. We need to show that $m + n$ is even. 
+Theorem: For any integers $m$ and $n$, if $m$ and $n$ are odd, then $m + n$ is even. 
+Proof: Consider any arbitrary integers $m$ and $n$ where $m$ and $n$ are odd. We need to show that $m + n$ is even. 
 Since m is odd, we know that there is an integer k where 
 $$ m = 2k + 1. \ (1) $$
 Similarly, because n is odd there must be some integer r such that 
@@ -110,22 +110,62 @@ $$ \begin{align}
 m + n &= 2k + 1 + 2r + 1 \\ &= 2k + 2r + 2 \\ &= 2(k + r + 1). \ \ (3)
 \end{align}
 $$ 
-Equation (3) tells us that there is an integer s (namely, k + r + 1) such that m + n = 2s. Therefore, we see that m + n is even, as required.■
+Equation (3) tells us that there is an integer $s$ (namely, $k + r + 1$) such that $m + n = 2s$. Therefore, we see that $m + n$ is even, as required.■
 
 ### Existentially-Quantified Statement
 
 An existentially-quantified statement is a statement of the form
-	There is some x where _some-property_ holds for x.
+	There is some $x$ where _some-property_ holds for x.
 
 Example:
 
-Theorem: For any odd integer n, there exist integers r and s where $r^2 - s^2=n$
-Proof: Let n be an arbitrary odd integer. We will show that there exist integers r and s where  $r^2 - s^2=n$ 
-Since n is odd, we know there is an integer k where $n = 2k + 1$. Now, let $r = k+1$ and $s = k$. Then we see that 
+Theorem: For any odd integer $n$, there exist integers $r$ and $s$ where $r^2 - s^2=n$
+Proof: Let n be an arbitrary odd integer. We will show that there exist integers $r$ and $s$ where  $r^2 - s^2=n$ 
+Since $n$ is odd, we know there is an integer $k$ where $n = 2k + 1$. Now, let $r = k+1$ and $s = k$. Then we see that 
 $$
 \begin{align}
 r ^2 \ – \ s ^2 &= (k+1)^2 –\ k ^2 \\ 
 &= k ^2 + 2k + 1 \ – \ k ^2 \\&= 2k + 1 \\&= n.
 \end{align}
 $$
-This means that r 2 – s 2 = n, which is what we needed to show. ■
+This means that $r^ 2\ – \ s^ 2 = n$, which is what we needed to show. ■
+
+## Proof 
+
+### Direct Proof
+
+Direction using normal statement to state that the propositional logical is true. A Direct Proof usually using an implication to confirm this statement.
+An implication is a statement of the form :
+	If P is true, then Q is true.
+In mathematics, implication is directional.
+
+Direct Proof always keep with the formal propositional logic and sometimes has a statement.
+### Indirect Proof
+
+#### Negation
+
+The Negation of a Propositional Logical Statement is either true or false.
+- The Negation of a Universal Statement is the Existential Statement
+- The Negation of a Existential Statement is the Universal Statement
+
+> Two Important Note : 
+> The Negation of an implication is not an implication .
+> The Negation of an statement is still an statement
+
+
+#### Contradiction
+Key Idea: Prove a statement P is true by showing that it isn’t false.
+
+First, assume that P is false. The goal is to show that this assumption is silly. Next, show this leads to an impossible result. Finally, conclude that since P can’t be false, we know that P must be true.
+
+#### Contrapositive
+The Contrapositive of the implication is the implication.
+
+For Example. :
+	If $P$ is true, then $Q$ is true
+Contrapositive Proof 
+	If $Q$ is false, then $P$ is false
+
+It will swap the position of the two statements which means swap the _antecedent_ and _consequent_.
+![](../../_IMG/MATH/Snipaste_2024-06-19_18-32-13.png)
+The contrapositive of an implication means exactly the same thing as the implication itself
