@@ -87,7 +87,7 @@ Every Set is strictly smaller that its power set
 # Mathematical Proof
 
 ## Statement
-
+There are some statements in Mathematical Proof 
 Overview :
 - Universally-Quantified Statement : User can make any arbitrary choices
 - Existentially-Quantified Statement : Only Some Particular choices can be used
@@ -99,7 +99,8 @@ A universally-quantified statement usually in this format !
 
 Example :
 
-Theorem: For any integers $m$ and $n$, if $m$ and $n$ are odd, then $m + n$ is even. 
+Theorem: For any integers $m$ and $n$, if $m$ and $n$ are odd, then $m + n$ is even.
+
 Proof: Consider any arbitrary integers $m$ and $n$ where $m$ and $n$ are odd. We need to show that $m + n$ is even. 
 Since m is odd, we know that there is an integer k where 
 $$ m = 2k + 1. \ (1) $$
@@ -130,35 +131,82 @@ r ^2 \ – \ s ^2 &= (k+1)^2 –\ k ^2 \\
 $$
 This means that $r^ 2\ – \ s^ 2 = n$, which is what we needed to show. ■
 
-## Proof 
-
-### Direct Proof
-
 Direction using normal statement to state that the propositional logical is true. A Direct Proof usually using an implication to confirm this statement.
 An implication is a statement of the form :
 	If P is true, then Q is true.
 In mathematics, implication is directional.
 
 Direct Proof always keep with the formal propositional logic and sometimes has a statement.
-### Indirect Proof
 
-#### Negation
+### Negation of Statement
 
 The Negation of a Propositional Logical Statement is either true or false.
 - The Negation of a Universal Statement is the Existential Statement
 - The Negation of a Existential Statement is the Universal Statement
 
-> Two Important Note : 
-> The Negation of an implication is not an implication .
-> The Negation of an statement is still an statement
+The Negation of Universal-Statement:
+	Every $P$ is a $Q$
+	Negation : There exist $P$ which is not a $Q$.
+
+The Negation of Existential-Statement:
+	There exists an $x$ where $P(x)$ is true.
+	Negation : For all $x$, $P(x)$ is false.
+
+The Negation of an implication is not an implication:
+	For every $x$, if $P(x)$ is true, then $Q(x)$ is true.
+	Negation: There is an $x$ where $P(x)$ is true and $Q(x)$ is false
+
+## Direct Proof
+
+### Implication
+
+Implications are one of the most common types of statements.an **_implication_** is a statement of the form:
+	if $P$ is true, then $Q$ is true
+
+As a reminder, the **_antecedent_** of this implication is the statement $𝑃$ is true, and the **_consequent_** of this implication is the statement $𝑄$ is true.
+
+Prove Implications:
+
+Suppose we want to prove this implication:
+	if P is true, then Q is true
+
+We Have Three Options available to us:
+- **_Direct Proof_**:
+	Assume $P$ is true, then prove $Q$ is true
+- **_Proof By Contrapositive_**:
+	Assume $Q$ is false, then prove $P$ is false
+- **_Proof By Contradiction_**:
+	Assume $P$ is true and $Q$ is false, then derive a contradiction
 
 
-#### Contradiction
+### Biconditional
+
+A **_biconditional_** is a statement of the form:
+	$P$ is true if and only if $Q$ is true
+We use the phrase **_if and only if_** to indicate that two statements imply one another.
+
+Prove Biconditional:
+
+To Prove a theorem of this form:
+	$P$ if and only if $Q$
+you need to prove two separate statements:
+1. first, that if $P$ is true, then $Q$ is true
+2. second, that if $Q$ is true, then $P$ is true
+
+
+## Indirect Proof
+
+### Contradiction
 Key Idea: Prove a statement P is true by showing that it isn’t false.
 
 First, assume that P is false. The goal is to show that this assumption is silly. Next, show this leads to an impossible result. Finally, conclude that since P can’t be false, we know that P must be true.
 
-#### Contrapositive
+For Example : 
+Prove $P$ is true through assume $P$ is false and we need to prove it's impossible when $P$ is false, 
+so $P$ is true
+
+
+### Contrapositive
 The Contrapositive of the implication is the implication.
 
 For Example. :
