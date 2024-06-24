@@ -9,10 +9,10 @@ Copyright: @QiuYiXiang
 Reference TextBook : 
 
 Introduction To Algorithm
-![](../../_IMG/AL/Snipaste_2024-05-04_18-22-27.png)
+![](../_IMG/AL/Snipaste_2024-05-04_18-22-27.png)
 
 Algorithm 4th
-![](../../_IMG/AL/Snipaste_2024-05-04_18-23-41.png)
+![](../_IMG/AL/Snipaste_2024-05-04_18-23-41.png)
 
 Reference University Course :
 - Stanford CS 106B : Programming Abstraction
@@ -51,10 +51,10 @@ Here is some general outline for Big-O Analysis
 
 
 Big-O Comparison
-![](../../_IMG/AL/Snipaste_2024-05-05_12-23-49.png)
+![](../_IMG/AL/Snipaste_2024-05-05_12-23-49.png)
 The Picture Above is Just a Approximation of Big-O Algorithm Chart,
 Here is a Very Concise Chart.
-![](../../_IMG/AL/Snipaste_2024-05-05_12-42-38.png)
+![](../_IMG/AL/Snipaste_2024-05-05_12-42-38.png)
 
 We can see that $O(log\ n)$ is very close to $O(n)$ and $O(2^n)$ is very close to $O(n^2)$ 
 
@@ -91,9 +91,9 @@ The Pascal's Triangle Formula is defined Here :
 $$ c(n, k) = \frac{n!}{k!\ \times
  (n - k )!}$$
 And Using this Formula, we can form this Triangle :
-![](../../_IMG/AL/Snipaste_2024-05-10_12-19-28.png)
+![](../_IMG/AL/Snipaste_2024-05-10_12-19-28.png)
 Pascal’s Triangle has the interesting property that every entry is the sum of the two entries above it, except along the left and right edges, where the values are always 1.
-![](../../_IMG/AL/Snipaste_2024-05-10_12-18-52.png)
+![](../_IMG/AL/Snipaste_2024-05-10_12-18-52.png)
 This entry, which corresponds to c(6, 2), is the sum of the two entries—5 and 10—that appear above it to either side.
 
 Simple Implementation (Without Generating the Triangle And Without Optimization): 
@@ -145,7 +145,7 @@ int countWaysToEscape(Grid<bool>& maze, GridLocation location) {
 ### Towers of Hanoi
 Towers of Hanoi is a very classical example of Advanced Recursion
 
-![](../../_IMG/AL/Snipaste_2024-05-10_13-30-20.png)
+![](../_IMG/AL/Snipaste_2024-05-10_13-30-20.png)
 At the beginning, all eight disks are on spire A. Your goal is to move the eight disks from spire A to spire B, while adhering to the following rules:
 
 - You can only move one disk at a time.
@@ -166,11 +166,11 @@ The goal here is to move eight disks from spire A to spire B. You need to ask yo
 you can solve the problem by dividing it into these three steps:
 
 1. Move the entire stack consisting of the top seven disks from spire A to spire C. 
-![](../../_IMG/AL/Snipaste_2024-05-10_17-00-11.png)
+![](../_IMG/AL/Snipaste_2024-05-10_17-00-11.png)
 2. Move the bottom disk from spire A to spire B.  
- ![](../../_IMG/AL/Snipaste_2024-05-12_12-59-06.png)
+ ![](../_IMG/AL/Snipaste_2024-05-12_12-59-06.png)
 3. Move the stack of seven disks from spire C to spire B.
-![](../../_IMG/AL/Snipaste_2024-05-12_12-59-32.png)
+![](../_IMG/AL/Snipaste_2024-05-12_12-59-32.png)
 Code Solution : 
 ```c++
 void __move_single(char __start, char __finish){  
@@ -371,7 +371,7 @@ int binary_search_recursive(const std::vector<_Tp>& buffer, const _Tp& target){
 
 Selection Sort go through the whole range of unsorted array, and search the smallest element in the array first, and mark it as smallest element and then after first loop it will swap the smallest element with the _left-most position_ element. And repeat the process for the remaining unsorted portion of the array.
 
-![](../../_IMG/AL/Snipaste_2024-06-19_09-37-49.png)
+![](../_IMG/AL/Snipaste_2024-06-19_09-37-49.png)
 Example:
 ```c++
 void selection_sort(std::vector<int>& buffer){  
@@ -393,7 +393,7 @@ Operations: Heavy on comparisons, light on swaps.It spends a lot of time compari
 ## Insertion Sort
 
 Insertion Sort insert one element into sorted range. Initially, consider the first element to constitute a separate, sorted vector. Then pull the first element out of the unsorted partition of the vector.
-![](../../_IMG/AL/Snipaste_2024-06-19_15-00-19.png)
+![](../_IMG/AL/Snipaste_2024-06-19_15-00-19.png)
 
 ```c++
 void insert_sort(std::vector<int>& buffer){  
@@ -420,9 +420,9 @@ Operations: Heavy on swaps, potentially light on comparisons. A pass of insertio
 Merge Sort will break down the vector, then merge the pieces back together.
 
 Overview 
-![](Snipaste_2024-06-19_15-59-14.png)
+![](../_IMG/AL/Snipaste_2024-06-19_15-59-14.png)
 Just Like a Decision Tree, When there is only one element in the buffer which have reached our base case.
-![](../../_IMG/AL/Snipaste_2024-06-19_16-03-20.png)
+![](../_IMG/AL/Snipaste_2024-06-19_16-03-20.png)
 
 Example Using Recursive: 
 ```c++
@@ -473,7 +473,7 @@ Quick Sort Algorithm :
 
 3. Concatenate the three now-sorted partitions together.
 
-![](../../_IMG/AL/Snipaste_2024-06-24_14-32-14.png)
+![](../_IMG/AL/Snipaste_2024-06-24_14-32-14.png)
 
 Implementations for array:
 ```c++

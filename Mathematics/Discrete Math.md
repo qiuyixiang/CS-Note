@@ -33,7 +33,7 @@ $$ \emptyset \subseteq S$$
 ### Basic Operation
 
 There are some Set Operations. And They all follow some rules !
-![](../../_IMG/MATH/Snipaste_2024-06-04_20-07-34.png)
+![](../_IMG/MATH/Snipaste_2024-06-04_20-07-34.png)
 Given the Venn Diagrams:
 $A = \{1,2,3\}$, $B=\{3,4,5\}$
 
@@ -167,5 +167,5 @@ Contrapositive Proof
 	If $Q$ is false, then $P$ is false
 
 It will swap the position of the two statements which means swap the _antecedent_ and _consequent_.
-![](../../_IMG/MATH/Snipaste_2024-06-19_18-32-13.png)
+![](../_IMG/MATH/Snipaste_2024-06-19_18-32-13.png)
 The contrapositive of an implication means exactly the same thing as the implication itself

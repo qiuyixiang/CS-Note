@@ -13,7 +13,7 @@ Glimpse of the Content :
 Referenced Text Book: 
 
 Introduction to Algorithm
-![](../../_IMG/AL/Snipaste_2024-05-04_18-22-27.png)
+![](../_IMG/AL/Snipaste_2024-05-04_18-22-27.png)
 
 # Linked List
 
@@ -34,7 +34,7 @@ this is a single list node structure
 
 
 # Tree
-![](../../_IMG/AL/Snipaste_2024-06-24_15-38-04.png)
+![](../_IMG/AL/Snipaste_2024-06-24_15-38-04.png)
 A Tree is either an empty data structure or a single node with zero or more non-empty subtrees.
 
 Some Basic Terminology In Tree : 
