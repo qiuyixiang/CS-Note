@@ -96,6 +96,91 @@ void post_order_print(tree_node<_Tp>* root){
 
 ## Binary Search Tree
 
+### Practice Problem
+
+#### Biggest One
+Write Two Function, the first one search the biggest element in the binary search tree and the second function search the second biggest element in the binary tree.
+```c++
+TreeNode* biggestNodeIn(TreeNode* root) {
+    if (!root)
+        return nullptr;
+    if (!root->right)
+        return root;
+    return biggestNodeIn(root->right);
+}
+
+TreeNode* secondBiggestNodeIn(TreeNode* root) {
+    if (!root)
+        return nullptr;
+    while (root->right){
+        if (!root->right->right){
+            if (root->right->left)
+                return root->right->left;
+            else
+                return root;
+        }
+        root = root->right;
+    }
+    if (root->left)
+        return root->left;
+    return root;
+}
+```
+#### Tree Height
+
+Writing A Function Height that return a tree's height !
+> Note a height of a tree is the longest path from its root node to its remotest leaf node
+
+```c++
+int height(TreeNode *node) {
+    if (!node)
+        return 0;
+
+    int left_height = height(node->left);
+    int right_height = height(node->right);
+    return (left_height > right_height ? left_height : right_height) + 1;
+}
+```
+
+#### Is Balanced 
+Write a function judge whether a tree is balanced. A tree is balanced if its left and right subtrees are balanced trees whose heights differ by at most 1. The empty tree is defined to be balanced.
+
+```c++
+bool isBalanced(TreeNode *node) {
+    if (node == nullptr) {
+        return true;
+    } else if (!isBalanced(node->left) || !isBalanced(node->right)) {
+        return false;
+    } else {
+        int leftHeight = height(node->left); 
+        int rightHeight = height(node->right);
+        return abs(leftHeight - rightHeight) <= 1;
+    }
+}
+```
+
+#### Validate A Binary Search Tree
+
+A Binary Search tree is either an empty tree or  it’s a node `x` whose left subtree is a BST of values smaller than `x` and whose right subtree is a BST of values greater than `x`.
+
+Write a function that judge a binary tree is whether a binary search tree.
+```c++
+bool isBST(TreeNode* root, TreeNode * lower, TreeNode * upper){
+    if (!root)
+        return true;
+    if (lower && root->data < lower->data)
+        return false;
+    else if (upper && root->data > upper->data)
+        return false;
+    else
+        return isBST(root->left, lower, root) && isBST(root->right, root ,upper);
+}
+bool isBST(TreeNode* root) {
+    return isBST(root, nullptr, nullptr);
+}
+```
+
+
 ## AVL Tree
 
 ## Red-Black Tree
@@ -154,6 +239,7 @@ Maxi Heap Operation Runtime
 | insertion(push) | $O(1)$            | $O(logn)$          |
 | deletion(pop)   | $O(1)$            | $O(logn)$          |
 | findMin(peek)   | $O(1)$            | $O(1)$             |
+
 
 > Maxi Heap Only Support deletion of the maximum value in the heap, not of arbitrary values. Same for the find/search/get operation
 

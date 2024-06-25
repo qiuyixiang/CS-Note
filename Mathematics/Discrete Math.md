@@ -68,7 +68,6 @@ The cardinality of a set is the number of elements it contains. Generally Speaki
 
 There are many infinitely many natural numbers, so we need introduce a new term $\aleph_0$.
 Let's Define $$|\mathbb{N}| = \aleph_0$$
-
 Power Set
 
 Define the power set of $S$, means the set of all subsets of $S$. We write the power set of S as $\wp(S)$ 
@@ -86,8 +85,9 @@ Every Set is strictly smaller that its power set
 
 # Mathematical Proof
 
+Proof is used to prove some mathematical theorems are true. And mathematical theorems are made of statements.
 ## Statement
-There are some statements in Mathematical Proof 
+There are some statements in Mathematical theorems 
 Overview :
 - Universally-Quantified Statement : User can make any arbitrary choices
 - Existentially-Quantified Statement : Only Some Particular choices can be used
