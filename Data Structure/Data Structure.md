@@ -94,11 +94,11 @@ void post_order_print(tree_node<_Tp>* root){
 }
 ```
 
-## Binary Search Tree
+### Binary Search Tree
 
-### Practice Problem
+#### Practice Problem
 
-#### Biggest One
+**_Biggest One_**
 Write Two Function, the first one search the biggest element in the binary search tree and the second function search the second biggest element in the binary tree.
 ```c++
 TreeNode* biggestNodeIn(TreeNode* root) {
@@ -106,27 +106,32 @@ TreeNode* biggestNodeIn(TreeNode* root) {
         return nullptr;
     if (!root->right)
         return root;
-    return biggestNodeIn(root->right);
+    else
+        return biggestNodeIn(root->right);
 }
 
 TreeNode* secondBiggestNodeIn(TreeNode* root) {
     if (!root)
         return nullptr;
-    while (root->right){
+    else if (!root->right){
+        if (root->left)
+            return root->left;
+        else
+            return root;
+    }else{
         if (!root->right->right){
             if (root->right->left)
                 return root->right->left;
             else
                 return root;
-        }
-        root = root->right;
+        }else
+            return secondBiggestNodeIn(root->right);
     }
-    if (root->left)
-        return root->left;
-    return root;
+
 }
 ```
-#### Tree Height
+
+**_Tree Height_**
 
 Writing A Function Height that return a tree's height !
 > Note a height of a tree is the longest path from its root node to its remotest leaf node
@@ -142,7 +147,7 @@ int height(TreeNode *node) {
 }
 ```
 
-#### Is Balanced 
+**_Is Balanced_**
 Write a function judge whether a tree is balanced. A tree is balanced if its left and right subtrees are balanced trees whose heights differ by at most 1. The empty tree is defined to be balanced.
 
 ```c++
@@ -159,37 +164,70 @@ bool isBalanced(TreeNode *node) {
 }
 ```
 
-#### Validate A Binary Search Tree
+**_Validate A Binary Search Tree_**
 
 A Binary Search tree is either an empty tree or  it’s a node `x` whose left subtree is a BST of values smaller than `x` and whose right subtree is a BST of values greater than `x`.
 
 Write a function that judge a binary tree is whether a binary search tree.
 ```c++
-bool isBST(TreeNode* root, TreeNode * lower, TreeNode * upper){
+bool isBST_axu(TreeNode * root, TreeNode * lowerBound, TreeNode * upperBound){
     if (!root)
         return true;
-    if (lower && root->data < lower->data)
+
+    // Check Whether The Value Break The Boundary
+    if (lowerBound && root->data <= lowerBound->data)
         return false;
-    else if (upper && root->data > upper->data)
+    if (upperBound && root->data >= upperBound->data)
         return false;
-    else
-        return isBST(root->left, lower, root) && isBST(root->right, root ,upper);
+
+    // Update The Boundary Limit For The Left and Right Node
+    // One Boundary Limit Update In the both side
+    
+    // To Visualize this kind of algorithm just draw a diagram
+    return isBST_axu(root->left, lowerBound, root) && isBST_axu(root->right, root, upperBound);
+
 }
 bool isBST(TreeNode* root) {
-    return isBST(root, nullptr, nullptr);
+    return isBST_axu(root, nullptr, nullptr);
 }
 ```
 
 
-## AVL Tree
+## Coding Tree
 
-## Red-Black Tree
+A Coding Tree is used to compress Data and make the data lossless. A Coding tree is valid if all the letters are stored at the leaves, with internal nodes just doing the routing.
 
-## B Tree
+![](../_IMG/AL/Snipaste_2024-06-26_11-28-39.png)
 
-## B+ Tree
+### Huffman Coding Tree
+
+#### Structure
+Huffman Coding Tree is an optimal coding tree. And It is also a variable-length Coding Tree.
+
+**_Some Properties_**:
+- The shorter paths represent frequently occurring characters that are being encoded with fewer bits. 
+- The longer paths are more rare characters that are being encoded with more bits.
+
+Huffman Coding Tree usually use a priority queue to construct the tree node !
+
+**_About The Priority Queue_**:
+When we have choices among equally weighted nodes, picking a different pair will result in a different, but still optimal, encoding Tree. 
+
+Similarly, when combining two subtrees, it is equally valid to put one of the trees on the left and the other on the right as it is to reverse them.
+
+Although all such trees are optimal, in order to faithfully restore the original contents, we must be sure to use the exact same tree to decode as was used to encode.
 
 
+![](../_IMG/AL/Snipaste_2024-06-26_11-48-51.png)
+
+Fixed-Length Coding Tree
+![](../_IMG/AL/Snipaste_2024-06-26_12-20-56.png)
+Variable-length Huffman Encoding Tree
+![](../_IMG/AL/Snipaste_2024-06-26_12-22-25.png)
+
+#### Encode
+
+#### Decode
 # Heap
 Heap is a special Data Structure. Which Inner Implementation is a binary tree Diagram.
 ## Mini Heap

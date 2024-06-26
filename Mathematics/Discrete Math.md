@@ -30,7 +30,7 @@ $$ \emptyset \subseteq S$$
 
 ## Set Operation
 
-### Basic Operation
+### Basic Symbols
 
 There are some Set Operations. And They all follow some rules !
 ![](../_IMG/MATH/Snipaste_2024-06-04_20-07-34.png)
@@ -82,6 +82,35 @@ Every Set is strictly smaller that its power set
 
 > Interesting Rules : Given elements of the set $\wp(\wp(\mathbb{N}))$. These are subsets of the set $\wp(\mathbb{N})$  
 
+#### Exercises
+
+There are some power set exercises.
+1. Give a set equal to $\emptyset \cup \{\emptyset\}$
+$$ \emptyset \cup \{\emptyset\} = \{\emptyset\}$$
+2. Give a set equal to $\emptyset \cap \{\emptyset\}$
+$$ \emptyset \cap \{\emptyset\} = \emptyset$$
+3. Give a set equal to $\{\emptyset\} \cup \{\{\emptyset\}\}$  
+$$\{\emptyset\} \cup \{\{\emptyset\}\} = \{\emptyset, \ \{\emptyset\}\}$$
+4. Give a set equal to $\{\emptyset\} \cap \{\{ \emptyset\}\}$
+$$\{\emptyset\} \cap \{\{ \emptyset\}\} = \emptyset$$
+5. Give a set equal to $\wp(\wp(\emptyset))$
+$$ 
+\begin{align}
+\wp(\wp(\emptyset)) &= \wp(\{\emptyset\}) \\
+&= \{\emptyset,\ \{\emptyset\}\}
+\end{align}
+$$
+6. Give a set equal to $\wp(\wp(\wp(\emptyset)))$
+$$
+\begin{align}
+\wp(\wp(\wp(\emptyset))) 
+&= \wp(\wp(\{\emptyset\})) \\
+&= \wp(\{\emptyset,\ \{\emptyset\}\}) \\
+&= \{\emptyset,\ \{\emptyset\},\ \{\{\emptyset\}\},\ \{\emptyset, \{\emptyset\}\}\}
+\end{align}
+$$
+
+### Set Laws
 
 # Mathematical Proof
 
