@@ -509,3 +509,83 @@ void quick_sort(std::vector<int>& buffer){
     concatenate(buffer, less, equal, greater);  
 }
 ```
+
+Quick Sort on Single Linked List
+```c++
+void partition(ListNode*& buffer, ListNode*& less, ListNode*& equal, ListNode*& greater, int pivot){
+    ListNode* less_current, *equal_current, *greater_current;
+    while (buffer != nullptr){
+        if (buffer->data < pivot){
+            if (!less){
+                less = buffer;
+                buffer = buffer->next;
+                less->next = nullptr;
+                less_current = less;
+            }else{
+                less_current->next = buffer;
+                buffer = buffer->next;
+                less_current = less_current->next;
+                less_current->next = nullptr;
+            }
+        }else if (buffer->data > pivot){
+            if (!greater){
+                greater = buffer;
+                buffer = buffer->next;
+                greater->next = nullptr;
+                greater_current = greater;
+            }else{
+               greater_current->next = buffer;
+                buffer = buffer->next;
+                greater_current = greater_current->next;
+                greater_current->next = nullptr;
+            }
+        }else{
+            if (!equal){
+                equal = buffer;
+                buffer = buffer->next;
+                equal->next = nullptr;
+                equal_current = equal;
+            }else{
+                equal_current->next = buffer;
+                buffer = buffer->next;
+                equal_current = equal_current->next;
+                equal_current->next = nullptr;
+            }
+        }
+    }
+}
+ListNode* joint(ListNode *& first, ListNode*& second){
+    if (!first)
+        return second;
+    if (!second)
+        return first;
+    ListNode * result = first;
+    ListNode * current = result;
+    while (current->next)
+        current = current->next;
+    current->next = second;
+    
+    return result;
+}
+void concatenate(ListNode*& buffer, ListNode*& less, ListNode*& equal, ListNode*& greater){
+    buffer = joint(less, equal);
+    buffer = joint(buffer, greater);
+    less = equal = greater = nullptr;
+}
+void quickSort(ListNode*& front) {
+    if (!front || !front->next)
+        return;
+
+    int pivot = front->data;
+    ListNode *less, *equal, *greater;
+    less = equal = greater = nullptr;
+    
+    partition(front, less, equal, greater, pivot);
+
+    quickSort(less);
+    quickSort(greater);
+
+    concatenate(front, less, equal, greater);
+
+}
+```

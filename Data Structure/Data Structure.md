@@ -225,9 +225,222 @@ Fixed-Length Coding Tree
 Variable-length Huffman Encoding Tree
 ![](../_IMG/AL/Snipaste_2024-06-26_12-22-25.png)
 
-#### Encode
+The Compressed File Include Two Parts 
+1. Flatten Tree
+2. Raw Data
+Which means we need also treat the two parts separately !
+#### Compress
 
-#### Decode
+Compress A File Into Huffman Raw Data need some steps:
+1. Build A Unique Huffman Coding Tree
+2. Encode Data Using Huffman Coding Tree
+3. Build Flatten Tree
+
+And Finally Bundle Them Together !
+
+> These Codes come from Stanford CS 106B Assignment 6 Huffman Coding
+```c++
+EncodedData compress(string messageText) {
+    EncodedData result;
+	// Build A Unique Huffman Coding Tree
+    EncodingTreeNode* huffmanCodingTree = buildHuffmanTree(messageText);
+    // Encode Data Using Huffman Coding Tree
+    Queue<Bit> content = encodeText(huffmanCodingTree, messageText);
+    result.messageBits = content;
+    // Build Flatten Tree
+    flattenTree(huffmanCodingTree, result.treeShape, result.treeLeaves);
+    deallocateTree(huffmanCodingTree);
+    
+    return result;
+}
+```
+##### Build Huffman Tree
+
+To build a Huffman tree we need to used a priority queue. Create a leaf node for each character and its weight. Each node is a singleton tree, and a collection of trees is called a _forest_. Merge the forest of trees into one combined tree from the bottom upwards.
+
+1. Find the two trees with the smallest weights in the forest and remove them.
+2. Create a new tree with these two trees as its subtrees. This tree's weight is equal to the sum of the weights of its subtrees.
+3. Add the new combined tree back into the forest.
+4. Repeat steps 1-3 until there is only one tree left in the forest. This is the final encoding tree.
+
+This is a Visualization Diagram For Building Huffman Tree
+
+1. First Create Many Leaf Node of the Huffman Coding Trees
+![](../_IMG/AL/Snipaste_2024-06-28_17-11-46.png)
+2. Connect the two lowest weight nodes, and make them become a new node which weight is the sum of the two nodes. And add the new node to the priority queue.
+![](../_IMG/AL/Snipaste_2024-06-28_17-12-51.png)
+3. Repeat the process of 2.
+![](../_IMG/AL/Snipaste_2024-06-28_17-13-47.png)
+![](../_IMG/AL/Snipaste_2024-06-28_17-14-10.png)
+4. When there is only left two nodes merge them into one final tree
+![](../_IMG/AL/Snipaste_2024-06-28_17-14-37.png)
+5. dequeue the final tree from the priority queue, this final tree is the Huffman Coding Tree.
+![](../_IMG/AL/Snipaste_2024-06-28_17-15-22.png)
+
+> These Codes come from Stanford CS 106B Assignment 6 Huffman Coding
+```c++
+struct priority_node{
+    priority_node(EncodingTreeNode* _node, unsigned int _prior) : node(_node), prior(_prior) { }
+    EncodingTreeNode* node;
+    unsigned int prior;
+};
+
+EncodingTreeNode* buildHuffmanTree(string text) {
+    std::map<char, unsigned int> mapper;
+    for (char _char : text)
+        mapper[_char]++;
+    PriorityQueue<priority_node> PQ_buffer;
+    for (const auto &[key, value] : mapper)
+        PQ_buffer.enqueue(priority_node(new EncodingTreeNode(key), value), static_cast<double>(value));
+    while (PQ_buffer.size() > 1) {
+        priority_node left = PQ_buffer.dequeue();
+        priority_node right = PQ_buffer.dequeue();
+        priority_node new_node = priority_node(new EncodingTreeNode(left.node, right.node), left.prior + right.prior);
+        PQ_buffer.enqueue(new_node, static_cast<double>(new_node.prior));
+    }
+    return PQ_buffer.dequeue().node;
+}
+```
+
+##### Encode The Data
+
+To Encode The Data we need to first traverse the whole tree and build a mapper, map from the character and their encoded coding. For Example `A = 011`. To achieve this we can use `std::map`.
+
+After map character and encoded coding we can repeated encode the file through access the mapper.
+
+> These Codes come from Stanford CS 106B Assignment 6 Huffman Coding
+```c++
+void traverse_leaf(std::map<char, std::vector<Bit>>& buffer, EncodingTreeNode* tree, std::vector<Bit>& coding){
+    if (tree->isLeaf()){
+        buffer.insert({tree->getChar(), coding});
+        return;
+    }
+    coding.push_back(0);
+    traverse_leaf(buffer, tree->zero, coding);
+    coding.pop_back();
+
+    coding.push_back(1);
+    traverse_leaf(buffer, tree->one, coding);
+    coding.pop_back();
+}
+
+Queue<Bit> encodeText(EncodingTreeNode* tree, string text) {
+    std::map<char, std::vector<Bit>> buffer;
+    std::vector<Bit> coding;
+    Queue<Bit> result;
+    traverse_leaf(buffer, tree, coding);
+
+    for (char _char : text){
+        for (auto& bit : buffer[_char])
+            result.enqueue(bit);
+    }
+
+    return result;
+}
+```
+
+##### Flatten Tree
+
+We also need to embed the flatten the Huffman Coding Tree in the raw file so that the receiver can use the same tree to decode the file.
+
+We can accomplish this through build a meta-data: 
+- the single bit 0/1 represent the tree shape (0 represent leaf-node, 1 represent non-leaf node)
+- the character sequence which represents the leaf-node data
+
+the first one we can use **_pre-order_** and the second one we can use **_post-order_**
+
+![](../_IMG/AL/Snipaste_2024-06-28_17-30-03.png)
+
+> These Codes come from Stanford CS 106B Assignment 6 Huffman Coding
+```c++
+void flattenTree(EncodingTreeNode* tree, Queue<Bit>& treeShape, Queue<char>& treeLeaves) {
+    if (tree->isLeaf()){
+        treeShape.enqueue(0);
+        treeLeaves.enqueue(tree->getChar());
+        return;
+    }
+    treeShape.enqueue(1);
+    flattenTree(tree->zero, treeShape, treeLeaves);
+    flattenTree(tree->one, treeShape, treeLeaves);
+}
+```
+
+#### Decompress
+
+Decompress is a similar process with Compress. But simpler.
+1. Get Huffman Coding Tree through Flatten Huffman Tree
+2. Decode the File using Huffman Tree
+
+Compound the two steps we are done !
+
+> These Codes come from Stanford CS 106B Assignment 6 Huffman Coding
+```c++
+string decompress(EncodedData& data) {
+	// Get Huffman Coding Tree through Flatten Huffman Tree
+    EncodingTreeNode * HuffmanTree = unflattenTree(data.treeShape, data.treeLeaves);
+    // Decode the File using Huffman Tree
+    auto result = decodeText(HuffmanTree, data.messageBits);
+    deallocateTree(HuffmanTree);
+    return result;
+}
+```
+##### Unflatten Tree
+
+We need firstly need to unflatten the Huffman tree in the meta-data. We need construct the Huffman Tree Using Flatten Huffman tree.
+
+Through traverse the whole Tree, we need construct the Huffman tree from root node and go deep one node. If a node is a leaf-node we construct directly else we construct its subtree recursively.
+
+> These Codes come from Stanford CS 106B Assignment 6 Huffman Coding
+```c++
+EncodingTreeNode* unflattenTree(Queue<Bit>& treeShape, Queue<char>& treeLeaves) {
+    EncodingTreeNode* root = nullptr;
+    Bit single_bit = treeShape.dequeue();
+
+    if (single_bit == 1)
+        root = new EncodingTreeNode(nullptr, nullptr);
+    else{
+        root = new EncodingTreeNode(treeLeaves.dequeue());
+        return root;
+    }
+    root->zero = unflattenTree(treeShape, treeLeaves);
+    root->one = unflattenTree(treeShape, treeLeaves);
+    return root;
+}
+```
+
+##### Decode The Data
+
+After we get the Huffman Tree, we can now decode the meta-data using it. We control whether access the left-child node or the right-child node through judge the single bit, if it is 0 we go left else we go right and if it is a leaf node we need to add the single character to the result data and reset the current node to the root.
+
+Repeat it until we reach the end of the bit sequence.
+
+> These Codes come from Stanford CS 106B Assignment 6 Huffman Coding
+```c++
+string decodeText(EncodingTreeNode* tree, Queue<Bit>& messageBits) {
+    if (messageBits.isEmpty())
+        return {};
+    EncodingTreeNode * current_node = tree;
+    std::string result_data;
+    Bit single_bit;
+    while (!messageBits.isEmpty()){
+        if (current_node->isLeaf()){
+            result_data += current_node->getChar();
+            current_node = tree;
+            continue;
+        }
+        single_bit = messageBits.dequeue();
+        if (single_bit == 1)
+            current_node = current_node->one;
+        else
+            current_node = current_node->zero;
+    }
+    if (current_node->isLeaf())
+        result_data += current_node->getChar();
+    return result_data;
+}
+```
+
+
 # Heap
 Heap is a special Data Structure. Which Inner Implementation is a binary tree Diagram.
 ## Mini Heap
