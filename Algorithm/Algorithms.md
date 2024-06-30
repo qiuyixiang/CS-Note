@@ -589,3 +589,45 @@ void quickSort(ListNode*& front) {
 
 }
 ```
+
+# String Algorithm
+
+## Reverse
+
+**_Reverse A String In place_**
+- Boundary from 0 to (str.length() - 1).
+
+Reverse Helper Function
+```c++
+void reverseInPlace(string &str, int start, int end){
+    for (int index = 0; index < (end - start) / 2; ++index)
+        std::swap(str[start + index], str[end - index - 1]);
+}
+```
+
+Reverse In Place :
+```c++
+void reverseInPlace(string& str) {
+    reverseInPlace(str, 0, str.length());
+}
+```
+
+**_Reverse A Word Of the String_**
+
+We Notice that a smart way that reverse the word in the string is that we only need to reverse every single word in the string and then reverse the whole string.
+```c++
+void reverseWordOrderingIn(string& sentence) {
+    int start = 0;
+    for (int index = 0; index != sentence.length(); ++index){
+        if (sentence[index] == ' '){
+            reverseInPlace(sentence, start, index);
+            start = index + 1;
+        }
+    }
+    reverseInPlace(sentence, start, sentence.length());
+    reverseInPlace(sentence, 0, sentence.length());
+}
+```
+
+
+## Match

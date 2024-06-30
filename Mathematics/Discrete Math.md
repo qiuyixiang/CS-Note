@@ -116,6 +116,7 @@ $$
 
 Proof is used to prove some mathematical theorems are true. And mathematical theorems are made of statements.
 ## Statement
+
 There are some statements in Mathematical theorems 
 Overview :
 - Universally-Quantified Statement : User can make any arbitrary choices
@@ -226,6 +227,7 @@ you need to prove two separate statements:
 ## Indirect Proof
 
 ### Contradiction
+
 Key Idea: Prove a statement P is true by showing that it isn’t false.
 
 First, assume that P is false. The goal is to show that this assumption is silly. Next, show this leads to an impossible result. Finally, conclude that since P can’t be false, we know that P must be true.
@@ -233,6 +235,9 @@ First, assume that P is false. The goal is to show that this assumption is silly
 For Example : 
 Prove $P$ is true through assume $P$ is false and we need to prove it's impossible when $P$ is false, 
 so $P$ is true
+
+Theorem: For any integer $n$, if $n^2$ is even, then $n$ is even. 
+Proof: Assume for the sake of contradiction that there is an integer $n$ where $n^2$ is even, but $n$ is odd.
 
 
 ### Contrapositive
@@ -246,3 +251,79 @@ Contrapositive Proof
 It will swap the position of the two statements which means swap the _antecedent_ and _consequent_.
 ![](../_IMG/MATH/Snipaste_2024-06-19_18-32-13.png)
 The contrapositive of an implication means exactly the same thing as the implication itself
+
+>Proof by contrapositive is another technique for theorems with a sentence structure that has the form of an implication. In fact, proof by contrapositive will proceed exactly like a direct proof, with similar “assume” and “want-to-show” steps, but will do so only after taking the contrapositive of the theorem to get a new, equivalent statement to prove.
+
+
+# Propositional Logic
+
+## Logic Symbols
+There are seven different Logic Symbols which called propositional connectives.
+
+| Symbols               | Meaning             | Boolean Equivalence          |
+| --------------------- | ------------------- | ---------------------------- |
+| $\neg\ p$             | Logic Negation      | !p                           |
+| $p\vee q$             | Logic disjunction   | \|\|                         |
+| $p\land q$            | Logic conjunction   | &&                           |
+| $p \rightarrow q$     | Logic Imply         | !(p && !q)                   |
+| $p \leftrightarrow q$ | Logic biconditional | (!(p && !q)) && (!(q && !p)) |
+
+**_Implication_**
+
+Implication $p \rightarrow q$ truth table
+- Only if $p$ is true and $q$ is false $p \rightarrow q$ is false
+
+| $p$ | $q$ | $p \rightarrow q$ |
+| --- | --- | ----------------- |
+| $T$ | $F$ | $F$               |
+| $T$ | $T$ | $T$               |
+| $F$ | $F$ | $T$               |
+| $F$ | $T$ | $T$               |
+
+**_biconditional_**
+biconditional statement $p \leftrightarrow q$ will be true only if the $p$ and $q$ have the same value
+And We can known that $p \leftrightarrow q$ is equivalence to the expression $(p \rightarrow q) \land (q \rightarrow p)$.
+
+| $p$ | $q$ | $p \leftrightarrow q$ |
+| --- | --- | --------------------- |
+| $F$ | $F$ | $T$                   |
+| $F$ | $T$ | $F$                   |
+| $T$ | $F$ | $F$                   |
+| $T$ | $T$ | $T$                   |
+There are two normal format when deal with the negation of biconditional $\neg(p \leftrightarrow q)$
+- $\neg\ p \leftrightarrow q$
+- $p \leftrightarrow \neg\ q$
+
+Example : Simplify this expression As soon as possible $\neg((p \lor(q\land r)) \leftrightarrow (a \land b \land c \rightarrow d))$
+$$ 
+\begin{align}
+\neg((p \lor(q\land r)) \leftrightarrow (a \land b \land c \rightarrow d)) 
+&= (p \lor (q \land r)) \leftrightarrow \neg(a \land b \land c \rightarrow d) \\
+&= (p \lor (q \land r)) \leftrightarrow (a \land b \land c \land \neg \ d) \\
+&= p \lor q \land r \leftrightarrow a \land b \land c \land \neg \ d
+\end{align}
+$$
+## Operation Laws
+
+There are different many Arithmetic Laws In Propositional Logic.
+
+| Laws                      | Operation                 | Equivalence                                 |
+| ------------------------- | ------------------------- | ------------------------------------------- |
+| De Morgan's Laws          | $\neg \ (p\lor q)$        | $\neg \ p \land \neg \ q$                   |
+| De Morgan's Laws          | $\neg \ (p \land q)$      | $\neg \ p \lor  \neg \  q$                  |
+| Implication Equivalence   | $p \rightarrow q$         | $\neg\ (p \land \neg\ q)$                   |
+| Implication Equivalence   | $\neg\ (p \rightarrow q)$ | $p \land \neg\ q$                           |
+| Biconditional Equivalence | $p \leftrightarrow q$     | $(p \rightarrow q) \land (q \rightarrow p)$ |
+
+## Logic Translation
+
+**_Simple Expression Translation_**
+There are main ways to translate English Words To First-Order Logic
+- Some $P$ is a $Q$ Translate to    : $\exists \  x\  (P(x) \land Q(x))$
+- All $P$'s are $Q$'s Translate to  : $\forall\ x\ (P(x) \rightarrow Q(x))$
+
+> Paring :
+> The $\exists$ quantifier usually is paired with $\land$
+> The $\forall$ quantifier usually is paired with $\rightarrow$
+
+

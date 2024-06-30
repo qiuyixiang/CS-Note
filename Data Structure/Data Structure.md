@@ -622,3 +622,139 @@ void make_heap(_RandomAccessIterator __first ,_RandomAccessIterator __last, _Com
 
 
 # Hash table
+
+A Normal Hash Table is usually constructed with a _bucket_ and some _slots_, namely an array and some linked lists.
+
+We use a hash function to determine the index of the element in the bucket. And store them in the right place.
+
+The Usually Hash Rules:
+	bucket = hash(value) % numBuckets
+
+![](../_IMG/AL/Snipaste_2024-06-29_10-17-45.png)
+
+**_Load Factor_**
+We call $\alpha = n\  / \ b$ our load factor. which $n$ means the number of elements and $b$ means the number of bucket
+- if $\alpha$ gets too big which means the hash table will be too slow.
+- if $\alpha$ gets too low, which means the hash table will waste too much space.
+
+Idea: If $\alpha$ gets too big, which means $n$ keep increasing too big. we need to resize our underlying buckets array and rehash the values to new buckets in the larger array. We double our number of buckets when we hit a particular threshold for our load factor. (We’ll use the threshold of $\alpha >= 2$)
+
+
+> Simple Implementation Of Hash Table:
+```c++
+template<class _Tp>  
+struct _hash_node{  
+    _hash_node<_Tp> * _next;  
+    _Tp _data;  
+    constexpr _hash_node(const _Tp& value, _hash_node<_Tp> * next)  
+        noexcept : _data(value), _next(next) { }  
+};  
+  
+template<typename _Tp>  
+class hash_table{  
+public:  
+    hash_table();  
+    hash_table(std::initializer_list<_Tp>li);  
+    ~hash_table();  
+  
+    void add(const _Tp& value);  
+    void clear();  
+    bool contains(const _Tp& value) const;  
+    std::size_t size() const;  
+    void rehash();  
+    size_t capacity()const;  
+private:  
+    enum {DEFAULT_CAPACITY = 10, EXPAND_SIZE = 2};  
+    _hash_node<_Tp> ** _elements;  
+    std::size_t _size;  
+    std::size_t _capacity;  
+    int getIndexOf(const _Tp& value) const;  
+};  
+  
+template<typename _Tp>  
+size_t hash_table<_Tp>::capacity() const {  
+    return this->_capacity;  
+}  
+  
+template<typename _Tp>  
+hash_table<_Tp>::hash_table(std::initializer_list<_Tp> li) : hash_table() {  
+    for (auto Iter = li.begin(); Iter != li.end(); ++Iter)  
+        this->add(*Iter);  
+}  
+  
+template<typename _Tp>  
+bool hash_table<_Tp>::contains(const _Tp &value) const {  
+    auto __index_bucket = this->getIndexOf(value);  
+    _hash_node<_Tp> * __current = this->_elements[__index_bucket];  
+    while (__current){  
+        if (__current->_data == value)  
+            return true;  
+        __current = __current->_next;  
+    }  
+    return false;  
+}  
+  
+template<typename _Tp>  
+std::size_t hash_table<_Tp>::size() const {  
+    return this->_size;  
+}  
+  
+template<typename _Tp>  
+void hash_table<_Tp>::rehash() {  
+    _hash_node<_Tp>** __old_element = this->_elements;  
+    auto __old_capacity = this->_capacity;  
+    this->_capacity *= EXPAND_SIZE;  
+    this->_elements = new _hash_node<_Tp>*[this->_capacity]();  
+  
+    for (int __index_bucket = 0; __index_bucket != __old_capacity; ++__index_bucket){  
+        _hash_node<_Tp>* __current = __old_element[__index_bucket];  
+        while (__current){  
+            _hash_node<_Tp>* __prev = __current;  
+            __current = __current->_next;  
+            int __index_element = this->getIndexOf(__prev->_data);  
+            __prev->_next = this->_elements[__index_element];  
+            this->_elements[__index_element] = __prev;  
+        }  
+    }  
+    delete[] __old_element;  
+}  
+  
+template<typename _Tp>  
+int hash_table<_Tp>::getIndexOf(const _Tp &value) const {  
+    return std::hash<_Tp>()(value) % this->_capacity;  
+}  
+  
+template<typename _Tp>  
+void hash_table<_Tp>::clear() {  
+    for (int __index_bucket = 0; __index_bucket != this->_capacity; ++__index_bucket){  
+        while (this->_elements[__index_bucket]){  
+            _hash_node<_Tp>* __current = this->_elements[__index_bucket];  
+            this->_elements[__index_bucket] = this->_elements[__index_bucket]->_next;  
+            delete __current;  
+        }  
+    }  
+    this->_size = 0;  
+}  
+  
+template<typename _Tp>  
+void hash_table<_Tp>::add(const _Tp &value) {  
+    if (!this->contains(value)){  
+        this->_elements[this->getIndexOf(value)] =  
+                new _hash_node<_Tp>(value, this->_elements[this->getIndexOf(value)]);  
+        this->_size++;  
+        if (this->_size / this->_capacity >= 2)  
+            this->rehash();  
+    }  
+}  
+  
+template<typename _Tp>  
+hash_table<_Tp>::~hash_table() {  
+    this->clear();  
+    delete[] this->_elements;  
+}  
+  
+template<typename _Tp>  
+hash_table<_Tp>::hash_table() :  
+    _capacity(DEFAULT_CAPACITY), _size(0), _elements(new _hash_node<_Tp>*[DEFAULT_CAPACITY]()) { }
+```
+
