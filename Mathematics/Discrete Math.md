@@ -255,6 +255,7 @@ The contrapositive of an implication means exactly the same thing as the implica
 >Proof by contrapositive is another technique for theorems with a sentence structure that has the form of an implication. In fact, proof by contrapositive will proceed exactly like a direct proof, with similar “assume” and “want-to-show” steps, but will do so only after taking the contrapositive of the theorem to get a new, equivalent statement to prove.
 
 
+
 # Propositional Logic
 
 ## Logic Symbols
@@ -307,17 +308,25 @@ $$
 
 There are different many Arithmetic Laws In Propositional Logic.
 
-| Laws                      | Operation                 | Equivalence                                 |
-| ------------------------- | ------------------------- | ------------------------------------------- |
-| De Morgan's Laws          | $\neg \ (p\lor q)$        | $\neg \ p \land \neg \ q$                   |
-| De Morgan's Laws          | $\neg \ (p \land q)$      | $\neg \ p \lor  \neg \  q$                  |
-| Implication Equivalence   | $p \rightarrow q$         | $\neg\ (p \land \neg\ q)$                   |
-| Implication Equivalence   | $\neg\ (p \rightarrow q)$ | $p \land \neg\ q$                           |
-| Biconditional Equivalence | $p \leftrightarrow q$     | $(p \rightarrow q) \land (q \rightarrow p)$ |
+| Laws                      | Operation                   | Equivalence                                 |
+| ------------------------- | --------------------------- | ------------------------------------------- |
+| De Morgan's Laws          | $\neg \ (p\lor q)$          | $\neg \ p \land \neg \ q$                   |
+| De Morgan's Laws          | $\neg \ (p \land q)$        | $\neg \ p \lor  \neg \  q$                  |
+| Implication Equivalence   | $p \rightarrow q$           | $\neg\ (p \land \neg\ q)$                   |
+| Implication Equivalence   | $\neg\ (p \rightarrow q)$   | $p \land \neg\ q$                           |
+| Biconditional Equivalence | $p \leftrightarrow q$       | $(p \rightarrow q) \land (q \rightarrow p)$ |
+| Negation Equivalence      | $\neg(p \land q)$           | $p \rightarrow \neg q$                      |
+| Negation Equivalence      | $\neg(p \rightarrow q)$     | $p \land \neg q$                            |
+| Negation Equivalence      | $\neg(p \leftrightarrow q)$ | $\neg p \leftrightarrow q$                  |
+| Negation Equivalence      | $\neg(p \leftrightarrow q)$ | $p \leftrightarrow \neg q$                  |
+
+> The Imply Symbol is only right-associative which is different to the propositional connectives they are all-associative
+
 
 ## Logic Translation
 
 **_Simple Expression Translation_**
+
 There are main ways to translate English Words To First-Order Logic
 - Some $P$ is a $Q$ Translate to    : $\exists \  x\  (P(x) \land Q(x))$
 - All $P$'s are $Q$'s Translate to  : $\forall\ x\ (P(x) \rightarrow Q(x))$
@@ -326,4 +335,92 @@ There are main ways to translate English Words To First-Order Logic
 > The $\exists$ quantifier usually is paired with $\land$
 > The $\forall$ quantifier usually is paired with $\rightarrow$
 
+Translation Formula
 
+| English Description    | First-Order Logic                            |
+| ---------------------- | -------------------------------------------- |
+| some $As$ are $Bs$     | $\exists\ x.\  (A(x) \land B(x))$            |
+| some $As$ are not $Bs$ | $\exists\ x.\ (A(x) \land \neg B(x))$        |
+| all $As$ are $Bs$      | $\forall\ x.\  (A(x)\rightarrow B(x))$       |
+| all $As$ are not $Bs$  | $\forall\ x. \ (A(x) \rightarrow \neg B(x))$ |
+
+**_Translation Example :_**
+
+1. Translate this statement _Every Person Love Anyone else !_ Assume $P$ and $L$ is two predicate function 
+$$ \forall\ p. (P(p) \rightarrow \exists q.\ (P(q)\  \land \ p \neq q \ \land \  L(\ p,\ q)\ )) $$
+2. Write a sentence in first-order logic that means “there is a person that everyone else loves.
+$$ \exists p.\ (P(p) \land \forall q.\ ( (P(q) \land p \neq q) \rightarrow L(\ q,\ p)))$$
+## Negation
+
+This Table Describe Some Formal Negation of First-Order Logic
+
+| First-Order Logic        | Negation First-Order Logic |
+| ------------------------ | -------------------------- |
+| $\exists\  x.\ P(x)$     | $\forall\ x.\ \neg P(x)$   |
+| $\exists\ x.\ \neg P(x)$ | $\forall\ x.\ P(x)$        |
+| $\forall\ x.\ P(x)$      | $\exists\ x.\ \neg P(x)$   |
+| $\forall\ x.\ \neg P(x)$ | $\exists\  x.\ P(x)$       |
+
+So according this Table we can deduce that these two negation logical equivalence formula:
+- $\neg(p \land q) = p \rightarrow \neg q$
+- $\neg(p \rightarrow q) = p \land \neg q$
+
+And Some Tips here :
+- ∧ is used in existentially-quantified statements. 
+- → is used in universally-quantified statements
+
+Example of Negation:
+1. Negate this Statement : $\exists S. (Set(S) \land (\forall \ x.\ \neg(x \in S))))$
+$$
+\begin{align}
+\neg(\exists S. (Set(S) \land (\forall \ x.\ \neg(x \in S)\ ))) 
+&= \neg\exists S. (Set(S) \land (\forall \ x.\ \neg(x \in S))) \\
+&= \forall S. \neg(Set(S) \land (\forall \ x.\ \neg(x \in S))) \\
+&= \forall S. (Set(S) \rightarrow \neg(\forall \ x.\ \neg(x \in S))) \\
+&= \forall S. (Set(S) \rightarrow \exists \ x.\ x \in S)
+\end {align}
+$$
+
+2. Translate this Statement using negation : There is only one way to find out. 
+$$ \exists x. (W(x) \land (\forall \ y. x \neq y \ \rightarrow \ \neg W(x)))= \exists x. (W(x) \land (\forall \ y. W(x)) \ \rightarrow \ x = y)$$
+
+- We get the right side formula through proof by contrapositive theory
+
+3. Negate This Statement : $\forall x.\ (P(x) \rightarrow \exists y.\ (P(y) \land y \neq x \land L(x, y)))$
+$$ 
+\begin{align}
+\neg (\forall x.\ (P(x) \rightarrow \exists y.\ (P(y) \land y \neq x \land L(x, y))))
+&= \neg \forall x.\ \neg(P(x) \rightarrow \exists y.\ (P(y) \land y \neq x \land L(x, y))) \\
+&= \exists x.\ P(x) \land \neg \exists y.\ \neg(P(y) \land y \neq x \land L(x, y))) \\
+&= \exists x.\ P(x) \land \forall y.\ \neg((P(y) \land y \neq x) \land L(x, y))) \\
+&= \exists x.\ P(x) \land \forall y.\ (P(y) \land y \neq x) \rightarrow \neg L(x, y))\\
+&= \exists x.\ (P(x) \land \forall y.\ (P(y) \land y \neq x \rightarrow \neg L(x, y))) \\
+\end{align}
+$$
+
+4. Negate this Statement : $\forall S.\ \forall T.\ (Set(S) \land Set(T) \rightarrow(S=T \leftrightarrow \forall x.\ (x \in S \leftrightarrow x \in T)))$
+$$ 
+\begin{align}
+& \neg(\forall S.\ \forall T.\ (Set(S) \land Set(T) \rightarrow(S=T \leftrightarrow \forall x.\ (x \in S \leftrightarrow x \in T)))) \\
+&= \neg\forall S.\ \neg\forall T.\ \neg(Set(S) \land Set(T) \rightarrow(S=T \leftrightarrow \forall x.\ (x \in S \leftrightarrow x \in T)))\\
+&= \exists S.\ \exists T.\ \neg(Set(S) \land Set(T) \rightarrow(S=T \leftrightarrow \forall x.\ (x \in S \leftrightarrow x \in T)))\\
+&= \exists S.\ \exists T.\ (Set(S) \land Set(T) \land \neg(S=T \leftrightarrow \forall x.\ (x \in S \leftrightarrow x \in T)))\\
+&= \exists S.\ \exists T.\ (Set(S) \land Set(T) \land (S\neq T \leftrightarrow \forall x.\ (x \in S \leftrightarrow x \in T)))\\
+\end{align}
+$$
+
+
+**_Negation of Biconditional Implication_**
+
+There are two ways for  the negation of the biconditional implication.
+the negation of $p \leftrightarrow q$  $(\ \neg(p \leftrightarrow q)\ )$ is equivalence to $\neg p \leftrightarrow q$ or $p \leftrightarrow \neg q$ only negate one side and the symbol keep the same before negation.
+
+Example: 
+Negate this statement : $((p \land q) \lor r) \leftrightarrow ((q \lor r) \rightarrow p)$
+$$ 
+\begin{align}
+\neg(((p \land q) \lor r) \leftrightarrow ((q \lor r) \rightarrow p))
+&= ((p \land q) \lor r) \leftrightarrow \neg((q \lor r) \rightarrow p) \\
+&= ((p \land q) \lor r) \leftrightarrow ((q \lor r) \land \neg p)
+\end{align}
+$$

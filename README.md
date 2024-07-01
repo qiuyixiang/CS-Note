@@ -65,5 +65,3 @@ Course Overview:
 	- Stanford CS 107E         Start Date : 2024-00-00  Finish Date : 2024-00-00
 
 
-- Tools
-	- MIT Missing Semester     Start Date : 2024-00-00  Finish Date : 2024-00-00

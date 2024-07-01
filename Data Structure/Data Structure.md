@@ -619,6 +619,17 @@ void make_heap(_RandomAccessIterator __first ,_RandomAccessIterator __last, _Com
 
 # Graph
 
+The Definition of Graph : A Structured way to represent relationships between different entities.
+![](../_IMG/AL/Snipaste_2024-07-01_16-30-27.png)
+There are different types of Graph:
+1. Directed Graph : Unidirectional relationships between nodes, represented with a pointed arrow
+2. Undirected Graph : Bidirectional relationships between nodes, represented with an arrow-less line.
+3. Weighted Graph : Each edge is assigned a numerical "weight" representing its relative significance/strength.
+4. Unweighted Graph : Each edge has equal significance, no labels assigned.
+
+This is how we usually represent a graph data structure 
+![](../_IMG/AL/Snipaste_2024-07-01_17-05-01.png)
+We can using a bi-dimensional matrix to represent this relation
 
 
 # Hash table
