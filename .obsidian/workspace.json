@@ -8,13 +8,17 @@
         "type": "tabs",
         "children": [
           {
-            "id": "e1f07a037cfe4a32",
+            "id": "a5376e7506d7cee8",
             "type": "leaf",
             "state": {
-              "type": "pkmer-downloader",
-              "state": {},
-              "icon": "bookmark",
-              "title": "Pkmer Market"
+              "type": "markdown",
+              "state": {
+                "file": "Road Map.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "Road Map"
             }
           }
         ]
@@ -73,7 +77,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 300
+    "width": 326.5
   },
   "right": {
     "id": "64154e869e891bfa",
@@ -90,7 +94,7 @@
               "type": "backlink",
               "state": {
                 "file": "Road Map.md",
-                "collapseAll": false,
+                "collapseAll": true,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
                 "showSearch": false,
@@ -141,12 +145,12 @@
               "title": "Outline of Road Map"
             }
           }
-        ]
+        ],
+        "currentTab": 3
       }
     ],
     "direction": "horizontal",
-    "width": 300,
-    "collapsed": true
+    "width": 350.5
   },
   "left-ribbon": {
     "hiddenItems": {
@@ -159,10 +163,10 @@
       "pkmer:Open Pkmer Market": false
     }
   },
-  "active": "e1f07a037cfe4a32",
+  "active": "a5376e7506d7cee8",
   "lastOpenFiles": [
     "README.md",
-    "LICENSE",
-    "Road Map.md"
+    "Road Map.md",
+    "LICENSE"
   ]
 }
