@@ -36,8 +36,9 @@ The Debugger use one argument for debugger level
 | -g                   | This flag requests the compiler to generate and embed debugging information in the executable             |
 | -ggdb                | Produce debugging information for use by GDB.                                                             |
 | -ggdblevel           | Request debugging information and also use level to specify how much information. The default level is 2. |
-| -fsanitize=address   | This flag enables the AddressSanitizer program, which is a memory error detector                          |
+| -fsanitize=address   | The address sanitizer detects invalid memory accesses when a program runs                                 |
 | -fsanitize=undefined | This flag enables the UndefinedBehaviorSanitizer program                                                  |
+| -fsanitize=leak      | The leak sanitizer detects _memory leaks_ upon the completion of a program                                |
 
 
 
@@ -48,3 +49,23 @@ Optimization Level from O0 - O3, from no-optimization to maximum optimization.
 | ------- | -------------------------------------------------------------------------------------- |
 | -O0     | This will compile your code without optimizations                                      |
 | -O3     | - This will enable the most aggressive optimizations, making your code run the fastest |
+
+
+### Preprocessor
+
+Here is the rules for directory search In Order.
+1. For the quote form of the include directive, the directory of the current file is searched first.
+2. For the quote form of the include directive, the directories specified by `-iquote` options are searched in left-to-right order
+3. Directories specified with `-I` options are scanned in left-to-right order.
+4. Directories specified with `-isystem` options are scanned in left-to-right order.
+5. Standard system directories are scanned.
+6. Directories specified with `-idirafter` options are scanned in left-to-right order.
+
+Options Summary
+
+| Command          | Usgae                                      |
+| ---------------- | ------------------------------------------ |
+| `-I` dir         | Specify search path according to the order |
+| `-iquote` dir    | Specify search path according to the order |
+| `-isystem` dir   | Specify search path according to the order |
+| `-idirafter` dir | Specify search path according to the order |
